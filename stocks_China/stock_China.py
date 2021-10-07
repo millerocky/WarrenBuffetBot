@@ -39,7 +39,7 @@ headers = {
 }
 baidu_name_page = requests.get(baidu_name_data, headers=headers).text
 baidu_name_soup = BeautifulSoup(baidu_name_page, 'html.parser')
-baidu_name_convert = baidu_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv mobile:mb-2'})
+baidu_name_convert = baidu_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
 baidu_name = baidu_name_convert[0].text
 
 
@@ -123,7 +123,7 @@ headers = {
 }
 nio_name_page = requests.get(nio_name_data, headers=headers).text
 nio_name_soup = BeautifulSoup(nio_name_page, 'html.parser')
-nio_name_convert = nio_name_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
+nio_name_convert = nio_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
 nio_name = nio_name_convert[0].text
 
 
