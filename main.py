@@ -3,11 +3,16 @@ from aiogram import types,Bot, Dispatcher, executor
 import config
 import time
 
+
+# Импортирую переменные китайских акций из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocks_China.stock_China import li_auto_name, li_auto_usd, baidu_name, baidu_usd, JD_name, JD_usd, \
+    bilibili_name, bilibili_usd, tencent_name, tencent_usd, nio_name, nio_usd, xpeng_name, xpeng_usd
+
 # Импортирую переменные с названиями криптовалют и их котировками из моего модуля, где происходит основной парсинг
 from cryptocurrencies.crypto import bnb_name, bnb_usd, bitcoin_dollar, ethereum_dollar, litecoin_dollar, cardano_dollar, \
     xrp_dollar, doge_dollar, tether_name, tether_usd, solana_name, solana_usd, terra_name, terra_usd, uniswap_name, \
     uniswap_usd, polkadot_name, polkadot_usd, avalanche_name, avalanche_usd, chainlink_name, chainlink_usd, tron_name, \
-    tron_usd, shiba_name, shiba_usd
+    tron_usd, shiba_name, shiba_usd, ethereumClassic_name, ethereumClassic_usd
 
 # Импортирую переменные курса валют из моего модуля, где происходит основной парсинг
 from currency.currency import dollar_rub, euro_rub
@@ -99,10 +104,11 @@ async def process_menu(message):
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
             rus_stocks = types.KeyboardButton('🇷🇺 Акции')
             usa_stocks = types.KeyboardButton('🇺🇸 Акции')
+            china_stocks = types.KeyboardButton('🇨🇳 Акции')
             world_indexes = types.KeyboardButton('🌆 Мировые индексы')
             back_button = types.KeyboardButton('◀️Назад')
 
-            markup.add(rus_stocks, usa_stocks, world_indexes, back_button)
+            markup.add(rus_stocks, usa_stocks, china_stocks, world_indexes, back_button)
 
             await bot.send_message(message.chat.id, '🕑Загрузка', reply_markup=markup)
 
@@ -151,6 +157,22 @@ async def process_menu(message):
             await bot.send_message(message.chat.id, text=str(stock_USA_13_name) + context + str(stock_USA_13_dollar) + DOl)
             await bot.send_message(message.chat.id, text=str(stock_USA_14_name) + context + str(stock_USA_14_dollar) + DOl)
 
+        if message.text == '🇨🇳 Акции':
+
+            context = '➡️'
+            DOl = '$'
+
+            await bot.send_message(message.chat.id, text='Загружаю котировки лидеров торгов 🇨🇳')
+            time.sleep(0.5)
+            await bot.send_message(message.chat.id, text=str(li_auto_name) + context + str(li_auto_usd) + DOl)
+            await bot.send_message(message.chat.id, text=str(baidu_name) + context + str(baidu_usd) + DOl)
+            await bot.send_message(message.chat.id, text=str(JD_name) + context + str(JD_usd) + DOl)
+            await bot.send_message(message.chat.id, text=str(bilibili_name) + context + str(bilibili_usd) + DOl)
+            await bot.send_message(message.chat.id, text=str(tencent_name) + context + str(tencent_usd) + DOl)
+            await bot.send_message(message.chat.id, text=str(nio_name) + context + str(nio_usd) +  DOl)
+            await bot.send_message(message.chat.id, text=str(xpeng_name) + context + str(xpeng_usd) + DOl)
+
+
         if message.text == '🌆 Мировые индексы':
 
             index = '🟢'
@@ -185,36 +207,22 @@ async def process_menu(message):
             await bot.send_message(message.chat.id, '🕐🔜 Загружаю криптобазу...')
             time.sleep(0.5)
             await bot.send_message(message.chat.id, text='🔷BTC-USD🔷 ➡️' + str(bitcoin_dollar) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text='🔷ETH-USD🔷 ➡️' + str(ethereum_dollar) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text='🔷LTC-USD🔷 ➡️' + str(litecoin_dollar) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text='🔷ADA-USD🔷 ➡️' + str(cardano_dollar) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text='🔷XRP-USD🔷 ➡️' + str(xrp_dollar) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text='🔷DOGE-USD🔷 ➡️' + str(doge_dollar) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(bnb_name) + char + context + str(bnb_usd) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(tether_name) + char + context + str(tether_usd) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(solana_name) + char + context +str(solana_usd) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(terra_name) + char + context + str(terra_usd) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(uniswap_name) + char + context + str(uniswap_usd) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(polkadot_name) + char + context + str(polkadot_usd) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(avalanche_name) + char + context + str(avalanche_usd) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(chainlink_name) + char + context + str(chainlink_usd) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(tron_name) + char + context + str(tron_usd) + USD)
-            time.sleep(1)
             await bot.send_message(message.chat.id, text=char + str(shiba_name) + char + context + str(shiba_usd) + USD)
+            await bot.send_message(message.chat.id, text=char + str(ethereumClassic_name) + context + str(ethereumClassic_usd) + USD)
 
         if message.text == '⚙️ Разработчик':
 

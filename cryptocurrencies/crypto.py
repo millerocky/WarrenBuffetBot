@@ -266,3 +266,22 @@ shiba_name_page = requests.get(shiba_name_data, headers=headers).text
 shiba_name_soup = BeautifulSoup(shiba_name_page, 'html.parser')
 shiba_name_convert = shiba_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
 shiba_name = shiba_name_convert[0].text
+
+
+ethereumClassic_data = 'https://ru.investing.com/crypto/ethereum-classic'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+ethereumClassic_page = requests.get(ethereumClassic_data, headers=headers).text
+ethereumClassic_soup = BeautifulSoup(ethereumClassic_page, 'html.parser')
+ethereumClassic_convert = ethereumClassic_soup.findAll('span', {'class': 'pid-1057275-last'})
+ethereumClassic_usd = ethereumClassic_convert[0].text
+
+ethereumClassic_name_data = 'https://ru.investing.com/crypto/ethereum-classic'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+ethereumClassic_name_page = requests.get(ethereumClassic_name_data, headers=headers).text
+ethereumClassic_name_soup = BeautifulSoup(ethereumClassic_name_page, 'html.parser')
+ethereumClassic_name_convert = ethereumClassic_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
+ethereumClassic_name = ethereumClassic_name_convert[0].text
