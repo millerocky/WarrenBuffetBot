@@ -45,7 +45,6 @@ dp = Dispatcher(bot)
 
 # Дескриптор(диспетчер отслеживает все стартовые нажатия на кнопки)
 @dp.message_handler(commands=['start'])
-
 async def bot_start(message):
     '''Запуск меню бота'''
     # Создаю UI/UX дизайн бота, кнопки основного меню  для реализации функционала
@@ -114,26 +113,26 @@ async def process_menu(message):
 
         if message.text == '🇷🇺 Акции':
 
-            context = '➡️'
-            RUB = ' RUB'
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
-            await bot.send_message(message.chat.id, text='Загружаю котировки лидеров торгов 🇷🇺')
+            basic_sector_rus = types.KeyboardButton('🧃 Потребительский сектор')
+            IT_sector_rus = types.KeyboardButton('📱 IT сектор')
+            finance_sector_rus = types.KeyboardButton('🏦 Финансовый сектор')
+            industrial_sector_rus = types.KeyboardButton('⛰ Промышленный сектор')
+            realEstate_sector_rus = types.KeyboardButton('🏙 Недвижимость')
+            medicine_sector_rus = types.KeyboardButton('💊 Медицина')
+
+            markup.add(basic_sector_rus, IT_sector_rus, finance_sector_rus, industrial_sector_rus, realEstate_sector_rus, medicine_sector_rus)
+
+        if message.text == '🧃 Потребительский сектор':
+
+            context = '➡️'
+            RUB = 'RUB'
+
+            await bot.send_message(message.chat.id, text='Загружаю котировки акций потребительского сектора')
             time.sleep(0.5)
-            await bot.send_message(message.chat.id, text=str(stockRu_1_name) + context + str(stockRu_1_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_2_name) + context + str(stockRu_2_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_3_name) + context + str(stockRu_3_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_4_name) + context + str(stockRu_4_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_5_name) + context + str(stockRu_5_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_6_name) + context + str(stockRu_6_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_7_name) + context + str(stockRu_7_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_8_name) + context + str(stockRu_8_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_9_name) + context + str(stockRu_9_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_10_name) + context + str(stockRu_10_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_11_name) + context + str(stockRu_11_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_12_name) + context + str(stockRu_12_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_13_name) + context + str(stockRu_13_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_14_name) + context + str(stockRu_14_rub) + RUB)
-            await bot.send_message(message.chat.id, text=str(stockRu_15_name) + context + str(stockRu_15_rub) + RUB)
+
+
 
         if message.text == '🇺🇸 Акции':
 
