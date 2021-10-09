@@ -4,6 +4,9 @@ import config
 import time
 
 
+# Импортирую переменные российских акций потребительского сектора из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.basic_sector_RU.stocks_basic_sector import stocksBasic_name, stocksBasic_data
+
 # Импортирую переменные китайских акций из моего модуля, где происходит основной парсинг
 from WarrenBuffetBot.stocks_China.stock_China import li_auto_name, li_auto_usd, baidu_name, baidu_usd, JD_name, JD_usd, \
     bilibili_name, bilibili_usd, tencent_name, tencent_usd, nio_name, nio_usd, xpeng_name, xpeng_usd
@@ -45,7 +48,7 @@ dp = Dispatcher(bot)
 
 # Дескриптор(диспетчер отслеживает все стартовые нажатия на кнопки)
 @dp.message_handler(commands=['start'])
-async def bot_start(message):
+async def bot_start(message: types.message):
     '''Запуск меню бота'''
     # Создаю UI/UX дизайн бота, кнопки основного меню  для реализации функционала
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -62,7 +65,7 @@ async def bot_start(message):
 # Обработчик данных от пользователя
 @dp.message_handler(content_types=['text'])
 # Функция - обработчик меню
-async def process_menu(message):
+async def process_menu(message: types.message):
     if message.chat.type == 'private':
 
         if message.text == '💰 Курс валют':
@@ -115,24 +118,39 @@ async def process_menu(message):
 
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
-            basic_sector_rus = types.KeyboardButton('🧃 Потребительский сектор')
-            IT_sector_rus = types.KeyboardButton('📱 IT сектор')
-            finance_sector_rus = types.KeyboardButton('🏦 Финансовый сектор')
-            industrial_sector_rus = types.KeyboardButton('⛰ Промышленный сектор')
-            realEstate_sector_rus = types.KeyboardButton('🏙 Недвижимость')
-            medicine_sector_rus = types.KeyboardButton('💊 Медицина')
+            basic_sector_rus = types.KeyboardButton('🧃 Потребительский сектор 🇷🇺')
+            IT_sector_rus = types.KeyboardButton('📱 IT сектор 🇷🇺')
+            finance_sector_rus = types.KeyboardButton('🏦 Финансовый сектор 🇷🇺')
+            industrial_sector_rus = types.KeyboardButton('⛰ Промышленный сектор 🇷🇺')
+            realEstate_sector_rus = types.KeyboardButton('🏙 Недвижимость 🇷🇺')
+            medicine_sector_rus = types.KeyboardButton('💊 Медицина 🇷🇺')
+            back_button = types.KeyboardButton('◀️Назад')
 
-            markup.add(basic_sector_rus, IT_sector_rus, finance_sector_rus, industrial_sector_rus, realEstate_sector_rus, medicine_sector_rus)
+            markup.add(basic_sector_rus, IT_sector_rus, finance_sector_rus, industrial_sector_rus, realEstate_sector_rus, medicine_sector_rus, back_button)
+
+            await bot.send_message(message.chat.id, text='🕑Загрузка', reply_markup=markup)
 
         if message.text == '🧃 Потребительский сектор':
 
             context = '➡️'
             RUB = 'RUB'
 
-            await bot.send_message(message.chat.id, text='Загружаю котировки акций потребительского сектора')
-            time.sleep(0.5)
+            for name in range(len(stocksBasic_name)):
+                await bot.send_message(message.chat.id, text=stocksBasic_name[name] + context + stocksBasic_data[stocksBasic_name[name]] + RUB)
 
+        if message.text == '◀️Назад':
 
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+
+            rus_stocks = types.KeyboardButton('🇷🇺 Акции')
+            usa_stocks = types.KeyboardButton('🇺🇸 Акции')
+            china_stocks = types.KeyboardButton('🇨🇳 Акции')
+            world_indexes = types.KeyboardButton('🌆 Мировые индексы')
+            back_button = types.KeyboardButton('◀️Назад')
+
+            markup.add(rus_stocks, usa_stocks, china_stocks, world_indexes, back_button)
+
+            await bot.send_message(message.chat.id, '🕑Загрузка', reply_markup=markup)
 
         if message.text == '🇺🇸 Акции':
 
