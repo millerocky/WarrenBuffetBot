@@ -65,7 +65,7 @@ mkb_name_convert = mkb_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'f
 mkb_name = mkb_name_convert[0].text
 
 stocks_finance_name.append(mkb_name)
-stocks_finance_name[mkb_name] = mkb_rub
+stocks_finance_rub[mkb_name] = mkb_rub
 '''==================================================================='''
 MOEX_data = 'https://ru.investing.com/equities/moskovskaya-birzha-oao'
 headers = {
@@ -170,7 +170,7 @@ BSPB_name_convert = BSPB_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 
 BSPB_name = BSPB_name_convert[0].text
 
 stocks_finance_name.append(BSPB_name)
-stocks_finance_name[BSPB_name] = BSPB_rub
+stocks_finance_rub[BSPB_name] = BSPB_rub
 '''========================================'''
 
 stocks_finance_name.sort()
