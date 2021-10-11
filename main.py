@@ -3,9 +3,11 @@ from aiogram import types,Bot, Dispatcher, executor
 import config
 import time
 
+# Импортирую переменные российских акций финансового сектора из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.finance_sector_RU.stocks_finance_sector import stocks_finance_name, stocks_finance_rub
 
 # Импортирую переменные российских акций IT-сектора из моего модуля, где происходит основной парсинг
-from WarrenBuffetBot.stocksRU.IT_sector.stocks_IT_sector import IT_name, IT_rub
+from WarrenBuffetBot.stocksRU.IT_sector_RU.stocks_IT_sector import IT_name, IT_rub
 
 # Импортирую переменные российских акций потребительского сектора из моего модуля, где происходит основной парсинг
 from WarrenBuffetBot.stocksRU.basic_sector_RU.stocks_basic_sector import stocksBasic_name, stocksBasic_data
@@ -149,6 +151,13 @@ async def process_menu(message: types.message):
             for IT in range(len(IT_name)):
                 await bot.send_message(message.chat.id, text=IT_name[IT] + context + IT_rub[IT_name[IT]] + RUB)
 
+        if message.text == '🏦 Финансовый сектор 🇷🇺':
+
+            context = '➡️'
+            RUB = 'RUB'
+
+            for finance in range(len(stocks_finance_name)):
+                await bot.send_message(message.chat.id, text=stocks_finance_name[finance] + context + stocks_finance_rub[stocks_finance_name[finance]] + RUB)
 
         if message.text == '◀️Назад':
 
