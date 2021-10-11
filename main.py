@@ -138,7 +138,7 @@ async def process_menu(message: types.message):
         if message.text == '🧃 Потребительский сектор 🇷🇺':
 
             context = '➡️'
-            RUB = 'RUB'
+            RUB = ' RUB'
 
             for basic in range(len(stocksBasic_name)):
                 await bot.send_message(message.chat.id, text=stocksBasic_name[basic] + context + stocksBasic_data[stocksBasic_name[basic]] + RUB)
@@ -146,7 +146,7 @@ async def process_menu(message: types.message):
         if message.text == '📱 IT сектор 🇷🇺':
 
             context = '➡️'
-            RUB = 'RUB'
+            RUB = ' RUB'
 
             for IT in range(len(IT_name)):
                 await bot.send_message(message.chat.id, text=IT_name[IT] + context + IT_rub[IT_name[IT]] + RUB)
@@ -154,7 +154,7 @@ async def process_menu(message: types.message):
         if message.text == '🏦 Финансовый сектор 🇷🇺':
 
             context = '➡️'
-            RUB = 'RUB'
+            RUB = ' RUB'
 
             for finance in range(len(stocks_finance_name)):
                 await bot.send_message(message.chat.id, text=stocks_finance_name[finance] + context + stocks_finance_rub[stocks_finance_name[finance]] + RUB)
@@ -176,7 +176,7 @@ async def process_menu(message: types.message):
         if message.text == '🇺🇸 Акции':
 
             context = '➡️'
-            DOl = '$'
+            DOl = ' $'
 
             await bot.send_message(message.chat.id, text='Загружаю котировки лидеров торгов 🇺🇸')
             time.sleep(0.5)
@@ -198,7 +198,7 @@ async def process_menu(message: types.message):
         if message.text == '🇨🇳 Акции':
 
             context = '➡️'
-            DOl = '$'
+            DOl = ' $'
 
             await bot.send_message(message.chat.id, text='Загружаю котировки лидеров торгов 🇨🇳')
             time.sleep(0.5)
@@ -240,7 +240,7 @@ async def process_menu(message: types.message):
 
             context = '➡'
             char = '🔷'
-            USD = '$'
+            USD = ' $'
 
             await bot.send_message(message.chat.id, '🕐🔜 Загружаю криптобазу...')
             time.sleep(0.5)
