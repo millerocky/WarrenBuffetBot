@@ -4,6 +4,9 @@ import config
 import time
 
 
+# Импортирую переменные российских акций IT-сектора из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.IT_sector.stocks_IT_sector import IT_name, IT_rub
+
 # Импортирую переменные российских акций потребительского сектора из моего модуля, где происходит основной парсинг
 from WarrenBuffetBot.stocksRU.basic_sector_RU.stocks_basic_sector import stocksBasic_name, stocksBasic_data
 
@@ -130,13 +133,22 @@ async def process_menu(message: types.message):
 
             await bot.send_message(message.chat.id, text='🕑Загрузка', reply_markup=markup)
 
-        if message.text == '🧃 Потребительский сектор':
+        if message.text == '🧃 Потребительский сектор 🇷🇺':
 
             context = '➡️'
             RUB = 'RUB'
 
-            for name in range(len(stocksBasic_name)):
-                await bot.send_message(message.chat.id, text=stocksBasic_name[name] + context + stocksBasic_data[stocksBasic_name[name]] + RUB)
+            for basic in range(len(stocksBasic_name)):
+                await bot.send_message(message.chat.id, text=stocksBasic_name[basic] + context + stocksBasic_data[stocksBasic_name[basic]] + RUB)
+
+        if message.text == '📱 IT сектор 🇷🇺':
+
+            context = '➡️'
+            RUB = 'RUB'
+
+            for IT in range(len(IT_name)):
+                await bot.send_message(message.chat.id, text=IT_name[IT] + context + IT_rub[IT_name[IT]] + RUB)
+
 
         if message.text == '◀️Назад':
 
