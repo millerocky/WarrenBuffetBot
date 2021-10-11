@@ -44,7 +44,7 @@ tinkoffBank_name_convert = tinkoffBank_name_soup.findAll('h1', {'class': 'text-2
 tinkoffBank_name = tinkoffBank_name_convert[0].text
 
 stocks_finance_name.append(tinkoffBank_name)
-stocks_finance_rub[stocks_finance_name] = tinkoffBank_rub
+stocks_finance_rub[tinkoffBank_name] = tinkoffBank_rub
 '''========================================================================'''
 mkb_data = 'https://ru.investing.com/equities/moskovskiy-kreditnyi-bank-oao'
 headers = {
