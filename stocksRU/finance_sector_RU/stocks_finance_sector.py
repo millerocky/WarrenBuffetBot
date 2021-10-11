@@ -18,7 +18,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
 vtb_name_page = requests.get(vtb_name_data, headers=headers).text
-vtb_name_soup = BeautifulSoup(vtb_name_page, 'html.pasrer')
+vtb_name_soup = BeautifulSoup(vtb_name_page, 'html.parser')
 vtb_name_convert = vtb_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
 vtb_name = vtb_name_convert[0].text
 
