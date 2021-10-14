@@ -26,11 +26,6 @@ from cryptocurrencies.crypto import bnb_name, bnb_usd, bitcoin_dollar, ethereum_
 from currency.currency import dollar_rub, euro_rub
 
 # Импортирую переменные российских акций из моего модуля, где происходит основной парсинг
-from stocksRU.stocks_RU import stockRu_1_name, stockRu_1_rub, stockRu_2_name, stockRu_2_rub, stockRu_3_name, \
-    stockRu_3_rub, stockRu_4_name, stockRu_4_rub, stockRu_5_name, stockRu_5_rub, stockRu_6_name, stockRu_6_rub, \
-    stockRu_7_name, stockRu_7_rub, stockRu_8_name, stockRu_8_rub, stockRu_9_name, stockRu_9_rub, stockRu_10_name, \
-    stockRu_10_rub, stockRu_11_name, stockRu_12_name, stockRu_11_rub, stockRu_12_rub, stockRu_13_name, stockRu_13_rub, \
-    stockRu_14_name, stockRu_14_rub, stockRu_15_name, stockRu_15_rub
 
 # Импортирую переменные американских акций из моего модуля, где происходит основной парсинг
 from stocksUSA.stocks_USA import stock_USA_1_name, stock_USA_2_name, stock_USA_1_dollar, stock_USA_2_dollar, \
