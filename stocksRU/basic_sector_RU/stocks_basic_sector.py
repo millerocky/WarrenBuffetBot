@@ -29,22 +29,22 @@ Magnit_name = Magnit_name_convert[0].text
 stocksBasic_name.append(Magnit_name)
 stocksBasic_data[Magnit_name] = Magnit_rub
 '''==============================================='''
-X5Retail_data = 'https://www.google.com/search?q=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+x5+retail+group&sxsrf=AOaemvLwRxHyMWNc6mUNNgJxnHp_vUwzxA%3A1633129031397&ei=R5JXYa7QF83HrgTjyJvIAQ&oq=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+x5+retail+group&gs_lcp=Cgdnd3Mtd2l6EAEYATIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyCAgAEIAEEMkDMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgAEEcQsAM6BwgAELADEEM6DAgjECcQnQIQRhD6AToKCAAQgAQQhwIQFDoECAAQQzoECCMQJzoQCAAQgAQQhwIQsQMQgwEQFDoICAAQgAQQsQM6CAgAELEDEIMBOgcIABCABBAKOggIABAWEAoQHjoGCAAQFhAeSgQIQRgAUIuwB1jF3Qdgo-cHaARwAngAgAHvAogBygeSAQU5LjMtMZgBAKABAcgBCsABAQ&sclient=gws-wiz'
+X5Retail_data = 'https://ru.investing.com/equities/x5-retail-grp?cid=1061926'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
 X5Retail_page = requests.get(X5Retail_data, headers=headers).text
 X5Retail_soup = BeautifulSoup(X5Retail_page, 'html.parser')
-X5Retail_convert = X5Retail_soup.findAll('span', {'class': 'IsqQVc', 'class': 'NprOob', 'class': 'XcVN5d', 'class': 'wT3VGc'})
+X5Retail_convert = X5Retail_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
 X5Retail_rub = X5Retail_convert[0].text
 
-X5Retail_name_data = 'https://www.google.com/search?q=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+x5+retail+group&sxsrf=AOaemvLwRxHyMWNc6mUNNgJxnHp_vUwzxA%3A1633129031397&ei=R5JXYa7QF83HrgTjyJvIAQ&oq=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+x5+retail+group&gs_lcp=Cgdnd3Mtd2l6EAEYATIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyCAgAEIAEEMkDMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgAEEcQsAM6BwgAELADEEM6DAgjECcQnQIQRhD6AToKCAAQgAQQhwIQFDoECAAQQzoECCMQJzoQCAAQgAQQhwIQsQMQgwEQFDoICAAQgAQQsQM6CAgAELEDEIMBOgcIABCABBAKOggIABAWEAoQHjoGCAAQFhAeSgQIQRgAUIuwB1jF3Qdgo-cHaARwAngAgAHvAogBygeSAQU5LjMtMZgBAKABAcgBCsABAQ&sclient=gws-wiz'
+X5Retail_name_data = 'https://ru.investing.com/equities/x5-retail-grp?cid=1061926'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
 X5Retail_name_page = requests.get(X5Retail_name_data, headers=headers).text
 X5Retail_name_soup = BeautifulSoup(X5Retail_name_page, 'html.parser')
-X5Retail_name_convert = X5Retail_name_soup.findAll('div', {'class': 'oPhL2e'})
+X5Retail_name_convert = X5Retail_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
 X5Retail_name = X5Retail_name_convert[0].text
 
 stocksBasic_name.append(X5Retail_name)

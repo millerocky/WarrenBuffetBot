@@ -12,7 +12,10 @@ from WarrenBuffetBot.stocksRU.IT_sector_RU.stocks_IT_sector import IT_name, IT_r
 # Импортирую переменные российских акций потребительского сектора из моего модуля, где происходит основной парсинг
 from WarrenBuffetBot.stocksRU.basic_sector_RU.stocks_basic_sector import stocksBasic_name, stocksBasic_data
 
-# Импортирую переменные китайских акций из моего модуля, где происходит основной парсинг
+# Импортирую переменные российскиз акций промышленного сектора из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.industrial_sector.stocks_industrial_sector import stocks_industrial_name, \
+    stocks_industrial_rub
+
 from WarrenBuffetBot.stocks_China.stock_China import li_auto_name, li_auto_usd, baidu_name, baidu_usd, JD_name, JD_usd, \
     bilibili_name, bilibili_usd, tencent_name, tencent_usd, nio_name, nio_usd, xpeng_name, xpeng_usd
 
@@ -37,7 +40,7 @@ from stocksUSA.stocks_USA import stock_USA_1_name, stock_USA_2_name, stock_USA_1
 
 # Импортирую переменные мировых индексов из моего модуля, где происходит основной парсинг
 from world_indexes.world_indexes import MOEX_index_name, MOEX_index_rub, SnP500_index_name, SnP500_index, \
-    NASDAQ_index_name, NASDAQ_index, SHANGAI_index_name, SHANGAI_index
+    NASDAQ_index_name, NASDAQ_index, SHANGAI_index_name, SHANGAI_index, array_index, prices_index
 
 # Создаю бота, используя секретный токен(он находится в файле config), который дал нам @BotFather
 bot = Bot(config.TOKEN)
@@ -154,6 +157,14 @@ async def process_menu(message: types.message):
             for finance in range(len(stocks_finance_name)):
                 await bot.send_message(message.chat.id, text=stocks_finance_name[finance] + context + stocks_finance_rub[stocks_finance_name[finance]] + RUB)
 
+        if message.text == '⛰ Промышленный сектор 🇷🇺':
+
+            context = '➡️'
+            RUB = ' RUB'
+
+            for industrial in range(len(stocks_industrial_name)):
+                await bot.send_message(message.chat.id, text=stocks_industrial_name[industrial] + context + stocks_industrial_rub[stocks_industrial_name[industrial]] + RUB)
+
         if message.text == '◀️Назад':
 
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -210,14 +221,9 @@ async def process_menu(message: types.message):
 
             index = '🟢'
             context = '➡️'
-            RUB = ' RUB'
 
-            await bot.send_message(message.chat.id, text='Загружаю котировки мировых индексов')
-            time.sleep(0.5)
-            await bot.send_message(message.chat.id, text= index + str((MOEX_index_name)) + context + str(MOEX_index_rub) + RUB)
-            await bot.send_message(message.chat.id, text= index + str(SnP500_index_name) + context + str(SnP500_index))
-            await bot.send_message(message.chat.id, text= index + str(NASDAQ_index_name) + context + str(NASDAQ_index))
-            await bot.send_message(message.chat.id, text= index + str(SHANGAI_index_name) + context + str(SHANGAI_index))
+            for indexes in range(len(array_index)):
+                await bot.send_message(message.chat.id, text=array_index[indexes] + context + prices_index[array_index[indexes]])
 
         if message.text == '◀️Назад':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)

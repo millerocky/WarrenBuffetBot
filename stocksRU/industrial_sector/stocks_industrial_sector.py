@@ -108,7 +108,7 @@ Aeroflot_name_convert = Aeroflot_name_soup.findAll('h1', {'class': 'text-2xl', '
 Aeroflot_name = Aeroflot_name_convert[0].text
 
 stocks_industrial_name.append(Aeroflot_name)
-stocks_industrial_rub[Alrosa_name] = Alrosa_rub
+stocks_industrial_rub[Aeroflot_name] = Aeroflot_rub
 '========================================================================'
 Gazprom_data = 'https://ru.investing.com/equities/gazprom_rts'
 headers = {
@@ -131,7 +131,7 @@ Gazprom_name = Gazprom_name_convert[0].text
 stocks_industrial_name.append(Gazprom_name)
 stocks_industrial_rub[Gazprom_name] = Gazprom_rub
 '==============================================================================='
-interRao_data = 'https://ru.investing.com/equities/inter-rao-ees_mm-company-profile'
+interRao_data = 'https://ru.investing.com/equities/inter-rao-ees_mm'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
@@ -140,7 +140,7 @@ interRao_soup = BeautifulSoup(interRao_page, 'html.parser')
 interRao_convert = interRao_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
 interRao_rub = interRao_convert[0].text
 
-interRao_name_data = 'https://ru.investing.com/equities/inter-rao-ees_mm-company-profile'
+interRao_name_data = 'https://ru.investing.com/equities/inter-rao-ees_mm'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
@@ -384,3 +384,87 @@ surgutneft_name = surgutneft_name_convert[0].text
 stocks_industrial_name.append(surgutneft_name)
 stocks_industrial_rub[surgutneft_name] = surgutneft_rub
 '=============================================================================================================='
+tatneft_data = 'https://ru.investing.com/equities/tatneft_rts'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+tatneft_page = requests.get(tatneft_data, headers=headers).text
+tatneft_soup = BeautifulSoup(tatneft_page, 'html.parser')
+tatneft_convert = tatneft_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
+tatneft_rub = tatneft_convert[0].text
+
+tatneft_name_data = 'https://ru.investing.com/equities/tatneft_rts'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+tatneft_name_page = requests.get(tatneft_name_data, headers=headers).text
+tatneft_name_soup = BeautifulSoup(tatneft_name_page, 'html.parser')
+tatneft_name_convert = tatneft_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
+tatneft_name = tatneft_name_convert[0].text
+
+stocks_industrial_name.append(tatneft_name)
+stocks_industrial_rub[tatneft_name] = tatneft_rub
+'===================================================================================================='
+transneft_data = 'https://ru.investing.com/equities/transneft-p_rts'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+transneft_page = requests.get(transneft_data, headers=headers).text
+transneft_soup = BeautifulSoup(transneft_page, 'html.parser')
+transneft_convert = transneft_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
+transneft_rub = transneft_convert[0].text
+
+transneft_name_data = 'https://ru.investing.com/equities/transneft-p_rts'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+transneft_name_page = requests.get(transneft_name_data, headers=headers).text
+transneft_name_soup = BeautifulSoup(transneft_name_page, 'html.parser')
+transneft_name_convert = transneft_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
+transneft_name = transneft_name_convert[0].text
+
+stocks_industrial_name.append(transneft_name)
+stocks_industrial_rub[transneft_name] = transneft_rub
+'======================================================================================================='
+phosagro_data = 'https://ru.investing.com/equities/phosagro'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+phosagro_page = requests.get(phosagro_data, headers=headers).text
+phosagro_soup = BeautifulSoup(phosagro_page, 'html.parser')
+phosagro_convert = phosagro_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
+phosagro_rub = phosagro_convert[0].text
+
+phosagro_name_data = 'https://ru.investing.com/equities/phosagro'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+phosagro_name_page = requests.get(phosagro_name_data, headers=headers).text
+phosagro_name_soup = BeautifulSoup(phosagro_name_page, 'html.parser')
+phosagro_name_convert = phosagro_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
+phosagro_name = phosagro_name_convert[0].text
+
+stocks_industrial_name.append(phosagro_name)
+stocks_industrial_rub[phosagro_name] = phosagro_rub
+'=============================================================================================='
+fsk_data = 'https://ru.investing.com/equities/fsk-ees_rts'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+fsk_page = requests.get(fsk_data, headers=headers).text
+fsk_soup = BeautifulSoup(fsk_page, 'html.parser')
+fsk_convert = fsk_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
+fsk_rub = fsk_convert[0].text
+
+fsk_name_data = 'https://ru.investing.com/equities/fsk-ees_rts'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+fsk_name_page = requests.get(fsk_name_data, headers=headers).text
+fsk_name_soup = BeautifulSoup(fsk_name_page, 'html.parser')
+fsk_name_convert = fsk_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
+fsk_name = fsk_name_convert[0].text
+
+stocks_industrial_name.append(fsk_name)
+stocks_industrial_rub[fsk_name] = fsk_rub
+'==========================================================================='
