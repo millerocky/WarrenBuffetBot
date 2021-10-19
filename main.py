@@ -171,6 +171,7 @@ async def process_menu(message: types.message):
 
         if message.text == '💊 Медицина 🇷🇺':
 
+
             context = '➡️'
             RUB = ' RUB'
 

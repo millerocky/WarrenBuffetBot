@@ -89,3 +89,5 @@ gemc_name = gemc_name_convert[0].text
 
 medicine_sector_name.append(gemc_name)
 medicine_sector_rub[gemc_name] = gemc_rub
+
+medicine_sector_name.sort()

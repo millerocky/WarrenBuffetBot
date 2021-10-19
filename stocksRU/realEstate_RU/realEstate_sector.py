@@ -48,3 +48,4 @@ lsr_name = lsr_name_convert[0].text
 stocks_industrial_name.append(lsr_name)
 stocks_industrial_rub[lsr_name] = lsr_rub
 '=========================================================================================================='
+
