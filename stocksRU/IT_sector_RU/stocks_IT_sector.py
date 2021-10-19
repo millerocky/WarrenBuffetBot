@@ -5,64 +5,64 @@ from bs4 import BeautifulSoup
 IT_rub = {}
 IT_name = []
 '''=================================================================================================================================================='''
-hhru_data = 'https://www.google.com/search?q=headhunter+%D0%B0%D0%BA%D1%86%D0%B8%D0%B8&oq=h&aqs=chrome.0.69i59j46i67i199i291i433j69i57j69i59j35i39j0i67l2j46i199i291i433i512j46i199i291i512j0i271.1214j1j15&sourceid=chrome&ie=UTF-8'
+hhru_data = 'https://ru.investing.com/equities/headhunter-group-plc?cid=1166764'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
 hhru_page = requests.get(hhru_data, headers=headers).text
 hhru_soup = BeautifulSoup(hhru_page, 'html.parser')
-hhru_convert = hhru_soup.findAll('span', {'class': 'IsqQVc', 'class': 'NprOob', 'class': 'XcVN5d', 'class': 'wT3VGc'})
+hhru_convert = hhru_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
 hhru_rub = hhru_convert[0].text
 
-hhru_name_data = 'https://www.google.com/search?q=headhunter+%D0%B0%D0%BA%D1%86%D0%B8%D0%B8&oq=h&aqs=chrome.0.69i59j46i67i199i291i433j69i57j69i59j35i39j0i67l2j46i199i291i433i512j46i199i291i512j0i271.1214j1j15&sourceid=chrome&ie=UTF-8'
+hhru_name_data = 'https://ru.investing.com/equities/headhunter-group-plc?cid=1166764'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
 hhru_name_page = requests.get(hhru_name_data, headers=headers).text
 hhru_name_soup = BeautifulSoup(hhru_name_page, 'html.parser')
-hhru_name_convert = hhru_name_soup.findAll('div', {'class': 'oPhL2e'})
+hhru_name_convert = hhru_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
 hhru_name = hhru_name_convert[0].text
 
 IT_name.append(hhru_name)
 IT_rub[hhru_name] = hhru_rub
 '''==========================================================================================================================================='''
-yandex_data = 'https://www.google.com/search?q=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81&sxsrf=AOaemvJO0i3yHPSTsS5maNn80zuI022sdQ%3A1633128906665&ei=ypFXYaD9J4CGwPAP_YegqAk&oq=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81&gs_lcp=Cgdnd3Mtd2l6EAEYADIICAAQgAQQsQMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgAEEcQsAM6BwgAELADEEM6BwgjECcQnQI6BAgjECc6CwgAEIAEELEDEIMBOgQIABBDOgwIIxAnEJ0CEEYQ-gE6EAgAEIAEEIcCELEDEIMBEBQ6CAgAELEDEIMBSgQIQRgAUJa4B1i3vwdgx8gHaAFwAngBgAHMAogBmwSSAQUzLjMtMZgBAKABAcgBCsABAQ&sclient=gws-wiz'
+yandex_data = 'https://ru.investing.com/equities/yandex?cid=102063'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
 yandex_page = requests.get(yandex_data, headers=headers).text
 yandex_soup = BeautifulSoup(yandex_page, 'html.parser')
-yandex_convert = yandex_soup.findAll('span', {'class': 'IsqQVc', 'class': 'NprOob', 'class': 'XcVN5d', 'class': 'wT3VGc'})
+yandex_convert = yandex_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
 yandex_rub = yandex_convert[0].text
 
-yandex_name_data = 'https://www.google.com/search?q=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81&sxsrf=AOaemvJO0i3yHPSTsS5maNn80zuI022sdQ%3A1633128906665&ei=ypFXYaD9J4CGwPAP_YegqAk&oq=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81&gs_lcp=Cgdnd3Mtd2l6EAEYADIICAAQgAQQsQMyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgAEEcQsAM6BwgAELADEEM6BwgjECcQnQI6BAgjECc6CwgAEIAEELEDEIMBOgQIABBDOgwIIxAnEJ0CEEYQ-gE6EAgAEIAEEIcCELEDEIMBEBQ6CAgAELEDEIMBSgQIQRgAUJa4B1i3vwdgx8gHaAFwAngBgAHMAogBmwSSAQUzLjMtMZgBAKABAcgBCsABAQ&sclient=gws-wiz'
+yandex_name_data = 'https://ru.investing.com/equities/yandex?cid=102063'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
 yandex_name_page = requests.get(yandex_name_data, headers=headers).text
 yandex_name_soup = BeautifulSoup(yandex_name_page, 'html.parser')
-yandex_name_convert = yandex_name_soup.findAll('div', {'class': 'oPhL2e'})
+yandex_name_convert = yandex_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
 yandex_name = yandex_name_convert[0].text
 
 IT_name.append(yandex_name)
 IT_rub[yandex_name] = yandex_rub
 '''===================================================================================================================================================='''
-mailru_data = 'https://www.google.com/search?q=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+mail.ru&sxsrf=AOaemvJCRaY9FUbGqvmGqlm7lU1NJPw7rQ%3A1633129282550&ei=QpNXYc_wIImprgSDi63IBw&oq=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+mail.ru&gs_lcp=Cgdnd3Mtd2l6EAEYATILCAAQgAQQsQMQgwEyBQgAEIAEMgUIABCABDILCAAQgAQQsQMQgwEyCwgAEIAEELEDEIMBMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgAEEcQsAM6BwgAELADEEM6DAgjECcQnQIQRhD6AToECCMQJzoQCAAQgAQQhwIQsQMQgwEQFDoECAAQQzoICAAQgAQQsQM6CAgAELEDEIMBSgQIQRgAUO_8B1is_wdg64cIaAFwAngAgAHGAogBhgOSAQUxLjMtMZgBAKABAcgBCsABAQ&sclient=gws-wiz'
+mailru_data = 'https://ru.investing.com/equities/mail.ru-grp-wi?cid=1163363'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
 mailru_page = requests.get(mailru_data, headers=headers).text
 mailru_soup = BeautifulSoup(mailru_page, 'html.parser')
-mailru_convert = mailru_soup.findAll('span', {'class': 'IsqQVc', 'class': 'NprOob', 'class': 'XcVN5d', 'class': 'wT3VGc'})
+mailru_convert = mailru_soup.findAll('span', {'class': 'instrument-price_last__KQzyA'})
 mailru_rub = mailru_convert[0].text
 
-mailru_name_data = 'https://www.google.com/search?q=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+mail.ru&sxsrf=AOaemvJCRaY9FUbGqvmGqlm7lU1NJPw7rQ%3A1633129282550&ei=QpNXYc_wIImprgSDi63IBw&oq=%D0%B0%D0%BA%D1%86%D0%B8%D0%B8+mail.ru&gs_lcp=Cgdnd3Mtd2l6EAEYATILCAAQgAQQsQMQgwEyBQgAEIAEMgUIABCABDILCAAQgAQQsQMQgwEyCwgAEIAEELEDEIMBMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgAEEcQsAM6BwgAELADEEM6DAgjECcQnQIQRhD6AToECCMQJzoQCAAQgAQQhwIQsQMQgwEQFDoECAAQQzoICAAQgAQQsQM6CAgAELEDEIMBSgQIQRgAUO_8B1is_wdg64cIaAFwAngAgAHGAogBhgOSAQUxLjMtMZgBAKABAcgBCsABAQ&sclient=gws-wiz'
+mailru_name_data = 'https://ru.investing.com/equities/mail.ru-grp-wi?cid=1163363'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
 }
 mailru_name_page = requests.get(mailru_name_data, headers=headers).text
 mailru_name_soup = BeautifulSoup(mailru_name_page, 'html.parser')
-mailru_name_convert = mailru_name_soup.findAll('div', {'class': 'oPhL2e'})
+mailru_name_convert = mailru_name_soup.findAll('h1', {'class': 'text-2xl', 'class': 'font-semibold', 'class': 'instrument-header_title__GTWDv', 'class': 'mobile:mb-2'})
 mailru_name = mailru_name_convert[0].text
 
 IT_name.append(mailru_name)

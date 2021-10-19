@@ -16,6 +16,10 @@ from WarrenBuffetBot.stocksRU.basic_sector_RU.stocks_basic_sector import stocksB
 from WarrenBuffetBot.stocksRU.industrial_sector.stocks_industrial_sector import stocks_industrial_name, \
     stocks_industrial_rub
 
+# Импортирую переменные российских акций из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.medicine_sector_RU.medicine_sectorRU import medicine_sector_name, medicine_sector_rub
+
+# Импортирую переменные китайских акций из моего модуля, где происходит основной парсинг
 from WarrenBuffetBot.stocks_China.stock_China import li_auto_name, li_auto_usd, baidu_name, baidu_usd, JD_name, JD_usd, \
     bilibili_name, bilibili_usd, tencent_name, tencent_usd, nio_name, nio_usd, xpeng_name, xpeng_usd
 
@@ -28,7 +32,7 @@ from cryptocurrencies.crypto import bnb_name, bnb_usd, bitcoin_dollar, ethereum_
 # Импортирую переменные курса валют из моего модуля, где происходит основной парсинг
 from currency.currency import dollar_rub, euro_rub
 
-# Импортирую переменные российских акций из моего модуля, где происходит основной парсинг
+
 
 # Импортирую переменные американских акций из моего модуля, где происходит основной парсинг
 from stocksUSA.stocks_USA import stock_USA_1_name, stock_USA_2_name, stock_USA_1_dollar, stock_USA_2_dollar, \
@@ -36,7 +40,7 @@ from stocksUSA.stocks_USA import stock_USA_1_name, stock_USA_2_name, stock_USA_1
     stock_USA_6_name, stock_USA_6_dollar, stock_USA_7_name, stock_USA_7_dollar, stock_USA_8_name, stock_USA_8_dollar, \
     stock_USA_9_name, stock_USA_9_dollar, stock_USA_10_name, stock_USA_10_dollar, stock_USA_11_name, \
     stock_USA_11_dollar, stock_USA_12_name, stock_USA_12_dollar, stock_USA_13_name, stock_USA_13_dollar, \
-    stock_USA_14_name, stock_USA_14_dollar
+    stock_USA_14_name, stock_USA_14_dollar, usa_names, usa_prices
 
 # Импортирую переменные мировых индексов из моего модуля, где происходит основной парсинг
 from world_indexes.world_indexes import MOEX_index_name, MOEX_index_rub, SnP500_index_name, SnP500_index, \
@@ -165,6 +169,14 @@ async def process_menu(message: types.message):
             for industrial in range(len(stocks_industrial_name)):
                 await bot.send_message(message.chat.id, text=stocks_industrial_name[industrial] + context + stocks_industrial_rub[stocks_industrial_name[industrial]] + RUB)
 
+        if message.text == '💊 Медицина 🇷🇺':
+
+            context = '➡️'
+            RUB = ' RUB'
+
+            for medicine in range(len(medicine_sector_name)):
+                await bot.send_message(message.chat.id, text=medicine_sector_name[medicine] + context + medicine_sector_rub[medicine_sector_name[medicine]] + RUB)
+
         if message.text == '◀️Назад':
 
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -181,25 +193,12 @@ async def process_menu(message: types.message):
 
         if message.text == '🇺🇸 Акции':
 
+            form = '🟢'
             context = '➡️'
             DOl = ' $'
 
-            await bot.send_message(message.chat.id, text='Загружаю котировки лидеров торгов 🇺🇸')
-            time.sleep(0.5)
-            await bot.send_message(message.chat.id, text=str(stock_USA_1_name) + context + str(stock_USA_1_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_2_name) + context + str(stock_USA_2_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_3_name) + context + str(stock_USA_3_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_4_name) + context + str(stock_USA_4_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_5_name) + context + str(stock_USA_5_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_6_name) + context + str(stock_USA_6_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_7_name) + context + str(stock_USA_7_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_8_name) + context + str(stock_USA_8_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_9_name) + context + str(stock_USA_9_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_10_name) + context + str(stock_USA_10_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_11_name) + context + str(stock_USA_11_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_12_name) + context + str(stock_USA_12_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_13_name) + context + str(stock_USA_13_dollar) + DOl)
-            await bot.send_message(message.chat.id, text=str(stock_USA_14_name) + context + str(stock_USA_14_dollar) + DOl)
+            for usa_company in range(len(usa_names)):
+                await bot.send_message(message.chat.id, text=form + usa_names[usa_company] + form + context + usa_prices[usa_names[usa_company]] + DOl)
 
         if message.text == '🇨🇳 Акции':
 
@@ -223,7 +222,7 @@ async def process_menu(message: types.message):
             context = '➡️'
 
             for indexes in range(len(array_index)):
-                await bot.send_message(message.chat.id, text=array_index[indexes] + context + prices_index[array_index[indexes]])
+                await bot.send_message(message.chat.id, text=index + array_index[indexes] + index + context + prices_index[array_index[indexes]])
 
         if message.text == '◀️Назад':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
