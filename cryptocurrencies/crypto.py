@@ -1,287 +1,311 @@
 import requests
 from bs4 import BeautifulSoup
 
-
+# Ключ суперюзера моего пк
+HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'}
+USD = 'USD'
 
 # Парсинг данных о котировках криптовалют
-bitcoin_data = 'https://www.google.com/search?q=%D0%B1%D0%B8%D1%82%D0%BA%D0%BE%D0%B8%D0%BD+%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80&oq=%D0%B1%D0%B8%D1%82&aqs=chrome.1.69i57j0i20i131i263i433i512j0i131i433i512l2j0i433i512j0i512j0i433i512j0i131i433i512j0i512j46i131i433i512.2258j0j15&sourceid=chrome&ie=UTF-8'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-bitcoin_page = requests.get(bitcoin_data, headers=headers).text
+bitcoin_data = 'https://ru.investing.com/crypto/bitcoin'
+bitcoin_page = requests.get(bitcoin_data, headers=HEADERS).text
 bitcoin_soup = BeautifulSoup(bitcoin_page, 'html.parser')
-bitcoin_convert = bitcoin_soup.findAll('span', {'class': 'DFlfde', 'class': 'SwHCTb', 'data-precision': 2})
-bitcoin_dollar = bitcoin_convert[0].text
+bitcoin_convert = bitcoin_soup.findAll('span', {'class': 'pid-1057391-last'})
+bitcoin_usd = bitcoin_convert[0].text + USD
+bitcoin_name = 'Bitcoin ➡'
 
+def show_bitcoin_name():
+    '''
+    :return: Название Bitcoin
+    '''
+    return bitcoin_name
+
+def show_bitcoin():
+    '''
+    :return: Bitcoin
+    '''
+    return bitcoin_usd
 
 ethereum_data = 'https://ru.investing.com/crypto/ethereum/eth-usd'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-ethereum_page = requests.get(ethereum_data, headers=headers).text
+ethereum_page = requests.get(ethereum_data, headers=HEADERS).text
 ethereum_soup = BeautifulSoup(ethereum_page, 'html.parser')
-ethereum_convert = ethereum_soup.findAll('span', {'class': 'arial_26', 'class': 'inlineblock', 'class': 'pid-1058142-last'})
-ethereum_dollar = ethereum_convert[0].text
+ethereum_convert = ethereum_soup.findAll('span', {'class': 'text-2xl'})
+ethereum_usd = ethereum_convert[0].text + USD
+ethereum_name = 'Ethereum ➡'
 
+def show_ethereum_name():
+    '''
+    :return: Название Ethereum
+    '''
+    return ethereum_name
 
-litecoin_data = 'https://www.google.com/search?q=litecoin+%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80&sxsrf=AOaemvIIcmwppFpuvfa12RPnq-835FNkYw%3A1632608184860&ei=uJ9PYc_xM-qnrgTTtrCQDw&oq=li+%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80&gs_lcp=Cgdnd3Mtd2l6EAEYADIGCAAQBxAeMgYIABAHEB4yCggAEAgQBxAKEB4yCAgAEAgQBxAeMggIABAIEAcQHjoHCAAQRxCwAzoHCAAQsAMQQzoQCC4QxwEQowIQyAMQsAMQQzoQCC4QxwEQ0QMQyAMQsAMQQzoHCCMQsQIQJzoECCMQJzoHCAAQsQMQQzoECAAQQzoKCAAQsQMQgwEQQzoJCCMQJxBGEIICOggIABAHEAUQHkoFCDgSATFKBAhBGABQ7f8ZWLWPGmDEnBpoAXACeACAAUyIAZQEkgEBOJgBAKABAcgBC8ABAQ&sclient=gws-wiz'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-litecoin_page = requests.get(litecoin_data, headers=headers).text
+def show_ethereum():
+    '''
+    :return: Ethereum
+    '''
+    return ethereum_usd
+
+litecoin_data = 'https://ru.investing.com/crypto/litecoin'
+litecoin_page = requests.get(litecoin_data, headers=HEADERS).text
 litecoin_soup = BeautifulSoup(litecoin_page, 'html.parser')
-litecoin_convert = litecoin_soup.findAll('span', {'class': 'DFlfde', 'class': 'SwHCTb', 'data-precision': 2})
-litecoin_dollar = litecoin_convert[0].text
+litecoin_convert = litecoin_soup.findAll('span', {'class': 'pid-1061445-last'})
+litecoin_usd = litecoin_convert[0].text + USD
+litecoin_name = 'Litecoin ➡'
 
+def show_litecoin_name():
+    '''
+    :return: Название Litecoin
+    '''
+    return litecoin_name
+
+def show_litecoin():
+    '''
+    :return: Litecoin
+    '''
+    return litecoin_usd
 
 cardano_data = 'https://ru.investing.com/crypto/cardano/ada-usd'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-cardano_page = requests.get(cardano_data, headers=headers).text
+cardano_page = requests.get(cardano_data, headers=HEADERS).text
 cardano_soup = BeautifulSoup(cardano_page, 'html.parser')
-cardano_convert = cardano_soup.findAll('span', {'class': 'arial_26', 'class': 'inlineblock', 'class': 'pid-1073899-last'})
-cardano_dollar = cardano_convert[0].text
+cardano_convert = cardano_soup.findAll('span', {'class': 'text-2xl'})
+cardano_usd = cardano_convert[0].text + USD
+cardano_name = 'Cardano ➡'
 
+def show_cardano_name():
+    '''
+    :return: Название Cardano
+    '''
+    return cardano_name
+
+def show_cardano():
+    '''
+    :return: Cardano
+    '''
+    return cardano_usd
 
 xrp_data = 'https://ru.investing.com/crypto/xrp/xrp-usd'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-xrp_page = requests.get(xrp_data, headers=headers).text
+xrp_page = requests.get(xrp_data, headers=HEADERS).text
 xrp_soup = BeautifulSoup(xrp_page, 'html.parser')
-xrp_convert = xrp_soup.findAll('span', {'class': 'arial_26', 'class': 'inlineblock', 'class': 'pid-1118146-last'})
-xrp_dollar = xrp_convert[0].text
+xrp_convert = xrp_soup.findAll('span', {'class': 'text-2xl'})
+xrp_usd = xrp_convert[0].text + USD
+xrp_name = 'XRP ➡'
+
+def show_xrp_name():
+    '''
+    :return: Название XRP
+    '''
+    return xrp_name
+
+def show_xrp():
+    '''
+    :return: XRP
+    '''
+    return xrp_usd
 
 doge_data = 'https://ru.investing.com/crypto/dogecoin/doge-usd'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-doge_page = requests.get(doge_data, headers=headers).text
+doge_page = requests.get(doge_data, headers=HEADERS).text
 doge_soup = BeautifulSoup(doge_page, 'html.parser')
-doge_convert = doge_soup.findAll('span', {'class': 'arial_26', 'class': 'inlineblock', 'class': 'pid-1158819-last'})
-doge_dollar = doge_convert[0].text
+doge_convert = doge_soup.findAll('span', {'class': 'text-2xl'})
+doge_usd = doge_convert[0].text + USD
+doge_name = 'DOGE ➡'
 
+def show_doge_name():
+    '''
+    :return: Название Doge Coin
+    '''
+    return doge_name
 
+def show_doge():
+    '''
+    :return: Doge Coin
+    '''
+    return doge_usd
 
 bnb_data = 'https://ru.investing.com/crypto/binance-coin'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-bnb_page = requests.get(bnb_data, headers=headers).text
+bnb_page = requests.get(bnb_data, headers=HEADERS).text
 bnb_soup = BeautifulSoup(bnb_page, 'html.parser')
 bnb_convert = bnb_soup.findAll('span', {'class': 'pid-1061448-last'})
-bnb_usd = bnb_convert[0].text
+bnb_usd = bnb_convert[0].text + USD
+bnb_name = 'BNB ➡'
 
+def show_bnb_name():
+    '''
+    :return: Название BNB Coin
+    '''
+    return bnb_name
 
-bnb_name_data = 'https://ru.investing.com/crypto/binance-coin'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-bnb_name_page = requests.get(bnb_name_data, headers=headers).text
-bnb_name_soup = BeautifulSoup(bnb_name_page, 'html.parser')
-bnb_name_convert = bnb_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-bnb_name = bnb_name_convert[0].text
-
-
+def show_bnb():
+    '''
+    :return: BNB Coin
+    '''
+    return bnb_usd
 
 tether_data = 'https://ru.investing.com/crypto/tether'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-tether_page = requests.get(tether_data, headers=headers).text
+tether_page = requests.get(tether_data, headers=HEADERS).text
 tether_soup = BeautifulSoup(tether_page, 'html.parser')
 tether_convert = tether_soup.findAll('span', {'class': 'pid-1061453-last'})
-tether_usd = tether_convert[0].text
+tether_usd = tether_convert[0].text + USD
+tether_name = 'Tether ➡'
 
-tether_name_data = 'https://ru.investing.com/crypto/tether'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-tether_name_page = requests.get(tether_name_data, headers=headers).text
-tether_name_soup = BeautifulSoup(tether_name_page, 'html.parser')
-tether_name_convert = tether_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-tether_name = tether_name_convert[0].text
+def show_tether_name():
+    '''
+    :return: Название Tether dollar
+    '''
+    return tether_name
 
-
+def show_tether():
+    '''
+    :return: Tether dollar
+    '''
+    return tether_usd
 
 solana_data = 'https://ru.investing.com/crypto/solana'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-solana_page = requests.get(solana_data, headers=headers).text
+solana_page = requests.get(solana_data, headers=HEADERS).text
 solana_soup = BeautifulSoup(solana_page, 'html.parser')
 solana_convert = solana_soup.findAll('span', {'class': 'pid-1177183-last'})
-solana_usd = solana_convert[0].text
+solana_usd = solana_convert[0].text + USD
+solana_name = 'Solana ➡'
 
+def show_solana_name():
+    '''
+    :return: Название Solana
+    '''
+    return solana_name
 
-solana_name_data = 'https://ru.investing.com/crypto/solana'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-solana_name_page = requests.get(solana_name_data, headers=headers).text
-solana_name_soup = BeautifulSoup(solana_name_page, 'html.parser')
-solana_name_convert = solana_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-solana_name = solana_name_convert[0].text
-
-
+def show_solana():
+    '''
+    :return: Solana
+    '''
+    return solana_usd
 
 terra_data = 'https://ru.investing.com/crypto/terra-luna'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-terra_page = requests.get(terra_data, headers=headers).text
+terra_page = requests.get(terra_data, headers=HEADERS).text
 terra_soup = BeautifulSoup(terra_page, 'html.parser')
 terra_convert = terra_soup.findAll('span', {'class': 'pid-1177187-last'})
-terra_usd = terra_convert[0].text
+terra_usd = terra_convert[0].text + USD
+terra_name = 'Terra ➡'
 
-terra_name_data = 'https://ru.investing.com/crypto/terra-luna'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-terra_name_page = requests.get(terra_name_data, headers=headers).text
-terra_name_soup = BeautifulSoup(terra_name_page, 'html.parser')
-terra_name_convert = terra_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-terra_name = terra_name_convert[0].text
+def show_terra_name():
+    '''
+    :return: Название Terra Coin
+    '''
+    return terra_name
 
-
+def show_terra():
+    '''
+    :return: Terra Coin
+    '''
+    return terra_usd
 
 uniswap_data = 'https://ru.investing.com/crypto/uniswap'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-uniswap_page = requests.get(uniswap_data, headers=headers).text
+uniswap_page = requests.get(uniswap_data, headers=HEADERS).text
 uniswap_soup = BeautifulSoup(uniswap_page, 'html.parser')
 uniswap_convert = uniswap_soup.findAll('span', {'class': 'pid-1177189-last'})
-uniswap_usd = uniswap_convert[0].text
+uniswap_usd = uniswap_convert[0].text + USD
+uniswap_name = 'UniSwap ➡'
 
+def show_uniswap_name():
+    '''
+    :return: Название UniSwap Token
+    '''
+    return uniswap_name
 
-uniswap_name_data = 'https://ru.investing.com/crypto/uniswap'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-uniswap_name_page = requests.get(uniswap_name_data, headers=headers).text
-uniswap_name_soup = BeautifulSoup(uniswap_name_page, 'html.parser')
-uniswap_name_convert = uniswap_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-uniswap_name = uniswap_name_convert[0].text
-
-
+def show_uniswap():
+    '''
+    :return: UniSwap Token
+    '''
+    return uniswap_usd
 
 polkadot_data = 'https://ru.investing.com/crypto/polkadot-new'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-polkadot_page = requests.get(polkadot_data, headers=headers).text
+polkadot_page = requests.get(polkadot_data, headers=HEADERS).text
 polkadot_soup = BeautifulSoup(polkadot_page, 'html.parser')
 polkadot_convert = polkadot_soup.findAll('span', {'class': 'pid-1177185-last'})
-polkadot_usd = polkadot_convert[0].text
+polkadot_usd = polkadot_convert[0].text + USD
+polkadot_name = 'Polkadot ➡'
 
+def show_polkadot_name():
+    '''
+    :return: Название Polkadot Coin
+    '''
+    return polkadot_name
 
-polkadot_name_data = 'https://ru.investing.com/crypto/polkadot-new'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-polkadot_name_page = requests.get(polkadot_name_data, headers=headers).text
-polkadot_name_soup = BeautifulSoup(polkadot_name_page, 'html.parser')
-polkadot_name_convert = polkadot_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-polkadot_name = polkadot_name_convert[0].text
-
-
+def show_dot():
+    '''
+    :return: Polkadot Coin
+    '''
+    return polkadot_usd
 
 avalanche_data = 'https://ru.investing.com/crypto/avalanche'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-avalanche_page = requests.get(avalanche_data, headers=headers).text
+avalanche_page = requests.get(avalanche_data, headers=HEADERS).text
 avalanche_soup = BeautifulSoup(avalanche_page, 'html.parser')
 avalanche_convert = avalanche_soup.findAll('span', {'class': 'pid-1177190-last'})
-avalanche_usd = avalanche_convert[0].text
+avalanche_usd = avalanche_convert[0].text + USD
+avalanche_name = 'Avalanche ➡️'
 
+def show_avalanche_name():
+    '''
+    :return: Название Avalanche Coin
+    '''
+    return avalanche_name
 
-avalanche_name_data = 'https://ru.investing.com/crypto/avalanche'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-avalanche_name_page = requests.get(avalanche_name_data, headers=headers).text
-avalanche_name_soup = BeautifulSoup(avalanche_name_page, 'html.parser')
-avalanche_name_convert = avalanche_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-avalanche_name = avalanche_name_convert[0].text
-
+def show_avalanche():
+    '''
+    :return: Avalanche Coin
+    '''
+    return avalanche_usd
 
 chainlink_data = 'https://ru.investing.com/crypto/chainlink'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-chainlink_page = requests.get(chainlink_data, headers=headers).text
+chainlink_page = requests.get(chainlink_data, headers=HEADERS).text
 chainlink_soup = BeautifulSoup(chainlink_page, 'html.parser')
 chainlink_convert = chainlink_soup.findAll('span', {'class': 'pid-1061794-last'})
-chainlink_usd = chainlink_convert[0].text
+chainlink_usd = chainlink_convert[0].text + USD
+chainlink_name = 'Chainlink ➡'
 
+def show_chainlink_name():
+    '''
+    :return: Название Chainlink Coin
+    '''
+    return chainlink_name
 
-chainlink_name_data = 'https://ru.investing.com/crypto/chainlink'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-chainlink_name_page = requests.get(chainlink_name_data, headers=headers).text
-chainlink_name_soup = BeautifulSoup(chainlink_name_page, 'html.parser')
-chainlink_name_convert = chainlink_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-chainlink_name = chainlink_name_convert[0].text
-
-
+def show_chainlink():
+    '''
+    :return: Chainlink Coin
+    '''
+    return chainlink_usd
 
 tron_data = 'https://ru.investing.com/crypto/tron'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-tron_page = requests.get(tron_data, headers=headers).text
+tron_page = requests.get(tron_data, headers=HEADERS).text
 tron_soup = BeautifulSoup(tron_page, 'html.parser')
 tron_convert = tron_soup.findAll('span', {'class': 'pid-1061450-last'})
-tron_usd = tron_convert[0].text
+tron_usd = tron_convert[0].text + USD
+tron_name = 'Tron ➡'
 
-tron_name_data = 'https://ru.investing.com/crypto/tron'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-tron_name_page = requests.get(tron_name_data, headers=headers).text
-tron_name_soup = BeautifulSoup(tron_name_page, 'html.parser')
-tron_name_convert = tron_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-tron_name = tron_name_convert[0].text
+def show_tron_name():
+    '''
+    :return: Название Tron Coin
+    '''
+    return tron_name
 
-
+def show_tron():
+    '''
+    :return: Tron Coin
+    '''
+    return tron_usd
 
 shiba_data = 'https://ru.investing.com/crypto/shiba-inu'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-shiba_page = requests.get(shiba_data, headers=headers).text
+shiba_page = requests.get(shiba_data, headers=HEADERS).text
 shiba_soup = BeautifulSoup(shiba_page, 'html.parser')
 shiba_convert = shiba_soup.findAll('span', {'class': 'pid-1177506-last'})
-shiba_usd = shiba_convert[0].text
+shiba_usd = shiba_convert[0].text + USD
+shiba_name = 'SHIBA ➡'
 
-shiba_name_data = 'https://ru.investing.com/crypto/shiba-inu'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-shiba_name_page = requests.get(shiba_name_data, headers=headers).text
-shiba_name_soup = BeautifulSoup(shiba_name_page, 'html.parser')
-shiba_name_convert = shiba_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-shiba_name = shiba_name_convert[0].text
+def show_shiba_name():
+    '''
+    :return:
+    '''
+    return shiba_name
 
-
-ethereumClassic_data = 'https://ru.investing.com/crypto/ethereum-classic'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-ethereumClassic_page = requests.get(ethereumClassic_data, headers=headers).text
-ethereumClassic_soup = BeautifulSoup(ethereumClassic_page, 'html.parser')
-ethereumClassic_convert = ethereumClassic_soup.findAll('span', {'class': 'pid-1057275-last'})
-ethereumClassic_usd = ethereumClassic_convert[0].text
-
-ethereumClassic_name_data = 'https://ru.investing.com/crypto/ethereum-classic'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
-}
-ethereumClassic_name_page = requests.get(ethereumClassic_name_data, headers=headers).text
-ethereumClassic_name_soup = BeautifulSoup(ethereumClassic_name_page, 'html.parser')
-ethereumClassic_name_convert = ethereumClassic_name_soup.findAll('h1', {'class': 'float_lang_base_1', 'class': 'relativeAttr'})
-ethereumClassic_name = ethereumClassic_name_convert[0].text
+def show_shiba():
+    '''
+    :return: Shiba Coin
+    '''
+    return shiba_usd

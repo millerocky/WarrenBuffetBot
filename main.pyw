@@ -1,131 +1,70 @@
 # Подключаю библиотеку aiogram для создания телеграм-бота
 from aiogram import types, Bot, Dispatcher, executor
 import config
-import time
 
-# Импортирую переменные российских акций финансового сектора из моего модуля, где происходит основной парсинг
-from WarrenBuffetBot.stocksRU.finance_sector_RU.stocks_finance_sector import stocks_finance_name, stocks_finance_rub
+# Подключаю функции по показу котировок валютных пар
+from WarrenBuffetBot.currency.currency import show_USD_RUB, show_EUR_RUB, show_ticker_usd, show_ticker_euro
 
-# Импортирую переменные российских акций IT-сектора из моего модуля, где происходит основной парсинг
-from WarrenBuffetBot.stocksRU.IT_sector_RU.stocks_IT_sector import IT_name, IT_rub
+# Подключаю функции по показу котировок российских акций финансового сектора из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.finance_sector_RU.stocks_finance_sector import show_vtb, show_tinkoff, show_mkb, \
+    show_sber, show_sber_prevs, show_afk, show_spb_bank, show_vtb_name, show_tinkoff_bank_name, \
+    show_mkb_name, show_sber_name, show_sber_prevs_name, show_afk_name, show_spb_bank_name
 
-# Импортирую переменные российских акций потребительского сектора из моего модуля, где происходит основной парсинг
-from WarrenBuffetBot.stocksRU.basic_sector_RU.stocks_basic_sector import stocksBasic_name, stocksBasic_data
+# Подключаю функции по показу котировок российских акций IT-сектора из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.IT_sector_RU.stocks_IT_sector import show_headhunter, show_yandex, \
+    show_mailru, show_mts, show_ozon, show_qiwi, show_rosseti, show_rostelecom, show_hhru_name, show_yandex_name, \
+    show_mailru_name, show_mts_name, show_ozon_name, show_qiwi_name, show_rosseti_name, show_rostelecom_name
 
-# Импортирую переменные российскиз акций промышленного сектора из моего модуля, где происходит основной парсинг
-from WarrenBuffetBot.stocksRU.industrial_sector.stocks_industrial_sector import stocks_industrial_name, \
-    stocks_industrial_rub
+# Подключаю функции по показу котировок российских акций потребительского сектора из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.basic_sector_RU.stocks_basic_sector import show_magnit, show_x5group, show_detskiy_mir, \
+    show_fix_price, show_mvideo, show_cherkizovo, show_magnit_name, show_x5group_name, show_detskiy_mir_name, \
+    show_fix_price_name, show_mvideo_name, show_cherkizovo_name
 
-# Импортирую переменные российских акций из моего модуля, где происходит основной парсинг
-from WarrenBuffetBot.stocksRU.medicine_sector_RU.medicine_sectorRU import medicine_sector_name, medicine_sector_rub
+# Подключаю функции по показу котировок российскиз акций промышленного сектора из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.industrial_sector.stocks_industrial_sector import show_globaltrans, show_petropavlovsk, \
+    show_polymetal, show_alrosa, show_aeroflot, \
+    show_gazprom, show_inter_rao, show_lukoil, show_mmk, show_nlmk, show_novatek, show_nornikel, show_polyus, \
+    show_rosneft, show_rusal, show_rushydro, show_severstal, show_surgutneft, show_tatneft, show_transneft, \
+    show_phosagro, show_fsk, show_globaltrans_name, show_petropavlovsk_name, show_polymetal_name, show_alrosa_name, \
+    show_aeroflot_name, show_gazprom_name, show_inter_rao_name, show_lukoil_name, show_mmk_name, show_nlmk_name, \
+    show_novatek_name, show_nornikel_name, show_polyus_name, show_rosneft_name, show_rusal_name, show_rushydro_name, \
+    show_severstal_name, show_surgutneft_name, show_tatneft_name, show_transneft_name, show_phosagro_name, show_fsk_name
 
-# Импортирую переменные китайских акций из моего модуля, где происходит основной парсинг
-from WarrenBuffetBot.stocks_China.stock_China import li_auto_name, li_auto_usd, baidu_name, baidu_usd, JD_name, JD_usd, \
-    bilibili_name, bilibili_usd, tencent_name, tencent_usd, nio_name, nio_usd, xpeng_name, xpeng_usd
+# Подключаю функции по показу котировок российских акций из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.medicine_sector_RU.medicine_sectorRU import show_life, show_iskj, show_mdmg, show_gemc, \
+    show_life_name, show_iskj_name, show_mdmg_name, show_gemc_name
 
-# Импортирую переменные с названиями криптовалют и их котировками из моего модуля, где происходит основной парсинг
-from cryptocurrencies.crypto import bnb_name, bnb_usd, bitcoin_dollar, ethereum_dollar, litecoin_dollar, cardano_dollar, \
-    xrp_dollar, doge_dollar, tether_name, tether_usd, solana_name, solana_usd, terra_name, terra_usd, uniswap_name, \
-    uniswap_usd, polkadot_name, polkadot_usd, avalanche_name, avalanche_usd, chainlink_name, chainlink_usd, tron_name, \
-    tron_usd, shiba_name, shiba_usd, ethereumClassic_name, ethereumClassic_usd
+# Подключаю функции по показу котировок китайских акций из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.stocksRU.realEstate_RU.realEstate_sector import show_pik, show_lsr, show_pik_name, show_lsr_name
+from WarrenBuffetBot.stocks_China.stock_China import show_li, show_baidu, show_jd, show_bilibili, show_tencent, \
+    show_nio, show_xpeng, show_li_name, show_baidu_name, show_JD_name, show_bilibili_name, show_tencent_name, \
+    show_nio_name, show_xpeng_name
 
-# Импортирую переменные курса валют из моего модуля, где происходит основной парсинг
-from currency.currency import dollar_rub, euro_rub
+# Подключаю функции по показу котировок с названиями криптовалют и их котировками из моего модуля, где происходит основной парсинг
+from cryptocurrencies.crypto import show_bitcoin, show_ethereum, show_litecoin, \
+    show_cardano, show_xrp, show_doge, show_bnb, show_tether, show_solana, show_terra, show_uniswap, show_dot, \
+    show_avalanche, show_chainlink, show_tron, show_shiba, show_bitcoin_name, show_ethereum_name, show_litecoin_name, \
+    show_cardano_name, show_xrp_name, show_doge_name, show_bnb_name, show_tether_name, show_solana_name, \
+    show_terra_name, show_uniswap_name, show_polkadot_name, show_avalanche_name, show_chainlink_name, show_tron_name, \
+    show_shiba_name
 
+# Подключаю функции по показу котировок американских акций из моего модуля, где происходит основной парсинг
+from stocksUSA.stocks_USA import show_alibaba, show_amazon, show_apple, \
+    show_exxonmobil, show_netflix, show_metaplatforms, show_nvidia, show_ge, show_google, show_jp, show_microsoft, \
+    show_tesla, show_walmart, show_palantir, show_stock_USA_1_name, show_stock_USA_2_name, show_stock_USA_3_name, \
+    show_stock_USA_4_name, show_stock_USA_5_name, show_stock_USA_6_name, show_stock_USA_7_name, show_stock_USA_8_name, \
+    show_stock_USA_9_name, show_stock_USA_10_name, show_stock_USA_11_name, show_stock_USA_12_name, \
+    show_stock_USA_13_name, show_stock_USA_14_name
 
+# Подключаю функции по показу котировок мировых индексов из моего модуля, где происходит основной парсинг
+from world_indexes.world_indexes import show_MOEX, show_snp500, show_nasdaq, show_shanghai, show_SnP500_name, \
+    show_NASDAQ_name, show_SHANGAI_name, show_MOEX_name
 
-# Импортирую переменные американских акций из моего модуля, где происходит основной парсинг
-from stocksUSA.stocks_USA import stock_USA_1_name, stock_USA_2_name, stock_USA_1_dollar, stock_USA_2_dollar, \
-    stock_USA_3_name, stock_USA_3_dollar, stock_USA_4_name, stock_USA_4_dollar, stock_USA_5_name, stock_USA_5_dollar, \
-    stock_USA_6_name, stock_USA_6_dollar, stock_USA_7_name, stock_USA_7_dollar, stock_USA_8_name, stock_USA_8_dollar, \
-    stock_USA_9_name, stock_USA_9_dollar, stock_USA_10_name, stock_USA_10_dollar, stock_USA_11_name, \
-    stock_USA_11_dollar, stock_USA_12_name, stock_USA_12_dollar, stock_USA_13_name, stock_USA_13_dollar, \
-    stock_USA_14_name, stock_USA_14_dollar, usa_names, usa_prices
-
-# Импортирую переменные мировых индексов из моего модуля, где происходит основной парсинг
-from world_indexes.world_indexes import MOEX_index_name, MOEX_index_rub, SnP500_index_name, SnP500_index, \
-    NASDAQ_index_name, NASDAQ_index, SHANGAI_index_name, SHANGAI_index, array_index, prices_index
-
-# Создаю бота, используя секретный токен(он находится в файле config), который дал нам @BotFather
+# Создаю бота, используя секретный токен(он находится в файле config, который дал нам @BotFather
 bot = Bot(config.TOKEN)
 
 # Создаю диспетчера, который отслеживает взаимодействие бота с пользователем
 dp = Dispatcher(bot)
-
-# Начинаю описывать функционал показа котировочных значений
-async def show_USD_RUB():
-    '''
-    :return: Показ пользователю валютной пары USD/RUB
-    '''
-    text = '💵 Курс доллара ➡️'
-    await bot.send_message(message.chat.id, text=text + str(dollar_rub))
-
-async def show_EUR_RUB():
-    '''
-    :return: Показ пользователю валютной пары EUR/RUB
-    '''
-    text = '💶 Курс евро ➡️'
-    await bot.send_message(message.chat.id, text=text + str(euro_rub))
-
-
-async def show_Basic_RU():
-    '''
-    :return: Показ пользователю котровок акций реального сектора РФ
-    '''
-    context = '➡️'
-    RUB = ' RUB'
-    for basic in range(len(stocksBasic_name)):
-        await bot.send_message(message.chat.id, text=stocksBasic_name[basic] + context + stocksBasic_data[stocksBasic_name[basic]] + RUB)
-
-async def show_IT_RU():
-    '''
-    :return: Показ пользователю котровок акций IT-сектора РФ
-    '''
-    context = '➡️'
-    RUB = ' RUB'
-    for IT in range(len(IT_name)):
-        await bot.send_message(message.chat.id, text=IT_name[IT] + context + IT_rub[IT_name[IT]] + RUB)
-
-async def show_Finance_RU():
-    '''
-    :return: Показ пользователю котировок акций финансового сектора РФ
-    '''
-    context = '➡️'
-    RUB = ' RUB'
-    for finance in range(len(stocks_finance_name)):
-        await bot.send_message(message.chat.id, text=stocks_finance_name[finance] + context + stocks_finance_rub[stocks_finance_name[finance]] + RUB)
-
-async def show_Industrial_RU():
-    '''
-    :return: Показ пользователю котировок акций индустриального сектора РФ
-    '''
-    context = '➡️'
-    RUB = ' RUB'
-    for industrial in range(len(stocks_industrial_name)):
-        await bot.send_message(message.chat.id,
-                               text=stocks_industrial_name[industrial] + context + stocks_industrial_rub[
-                                   stocks_industrial_name[industrial]] + RUB)
-
-async def show_Medicine_RU():
-    '''
-    :return: Показ пользователю котировок акций здравоохранительного сектора РФ
-    '''
-    context = '➡️'
-    RUB = ' RUB'
-    for medicine in range(len(medicine_sector_name)):
-        await bot.send_message(message.chat.id, text=medicine_sector_name[medicine] + context + medicine_sector_rub[
-            medicine_sector_name[medicine]] + RUB)
-
-async def show_realEstate_RU():
-    '''
-    :return: Показ пользователю котировок акций сектора - недвижимость РФ
-    '''
-    context = '➡️'
-    RUB = ' RUB'
-    for realEstate in range(len(stocks_industrial_name)):
-        await bot.send_message(message.chat.id, text=stocks_industrial_name[realEstate] + context + stocks_industrial_rub[
-            stocks_industrial_name[realEstate]] + RUB)
-
 
 # Дескриптор(диспетчер отслеживает все стартовые нажатия на кнопки)
 @dp.message_handler(commands=['start'])
@@ -139,9 +78,7 @@ async def bot_start(message: types.message):
     stocks_button = types.KeyboardButton('💸 Курс акций')
     cryptocurrency_button = types.KeyboardButton('💎 Курс криптовалют')
     information_button = types.KeyboardButton('⚙️ Разработчик')
-
     markup.add(currency_button, stocks_button, cryptocurrency_button, information_button)
-
     await bot.send_message(message.chat.id, 'Уоррен Баффетт приветствует тебя в мире инвестиций, {0.first_name}'.format(message.from_user), reply_markup=markup)
 
 
@@ -155,53 +92,40 @@ async def process_menu(message: types.message):
     if message.chat.type == 'private':
 
         if message.text == '💰 Курс валют':
-
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
             dollar_button = types.KeyboardButton('💵 USD/RUB')
             euro_button = types.KeyboardButton('💶 EUR/RUB')
             back_button = types.KeyboardButton('◀️Назад')
-
             markup.add(dollar_button, euro_button, back_button)
-
             await bot.send_message(message.chat.id, '🕑 Загружаю курсы валют\n 🟩Загрузка...', reply_markup=markup)
 
         if message.text == '💵 USD/RUB':
-
-            await show_USD_RUB()
+            await bot.send_message(message.chat.id, show_ticker_usd(), show_USD_RUB())
 
         if message.text == '💶 EUR/RUB':
-
-            await show_EUR_RUB()
+            await bot.send_message(message.chat.id, show_ticker_euro(),show_EUR_RUB())
 
         if message.text == '◀️Назад':
-
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
             currency_button = types.KeyboardButton('💰 Курс валют')
             stocks_button = types.KeyboardButton('💸 Курс акций')
             cryptocurrency_button = types.KeyboardButton('💎 Курс криптовалют')
             information_button = types.KeyboardButton('⚙️ Разработчик')
-
             markup.add(currency_button, stocks_button, cryptocurrency_button, information_button)
-
             await bot.send_message(message.chat.id, '◀️Назад', reply_markup=markup)
 
         if message.text == '💸 Курс акций':
-
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
             rus_stocks = types.KeyboardButton('🇷🇺 Акции')
             usa_stocks = types.KeyboardButton('🇺🇸 Акции')
             china_stocks = types.KeyboardButton('🇨🇳 Акции')
             world_indexes = types.KeyboardButton('🌆 Мировые индексы')
             back_button = types.KeyboardButton('◀️Назад')
-
             markup.add(rus_stocks, usa_stocks, china_stocks, world_indexes, back_button)
-
             await bot.send_message(message.chat.id, '🕑Загрузка', reply_markup=markup)
 
         if message.text == '🇷🇺 Акции':
-
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-
             basic_sector_rus = types.KeyboardButton('🧃 Потребительский сектор 🇷🇺')
             IT_sector_rus = types.KeyboardButton('📱 IT сектор 🇷🇺')
             finance_sector_rus = types.KeyboardButton('🏦 Финансовый сектор 🇷🇺')
@@ -209,81 +133,111 @@ async def process_menu(message: types.message):
             realEstate_sector_rus = types.KeyboardButton('🏙 Недвижимость 🇷🇺')
             medicine_sector_rus = types.KeyboardButton('💊 Медицина 🇷🇺')
             back_button = types.KeyboardButton('◀️Назад')
-
             markup.add(basic_sector_rus, IT_sector_rus, finance_sector_rus, industrial_sector_rus, realEstate_sector_rus, medicine_sector_rus, back_button)
-
             await bot.send_message(message.chat.id, text='🕑Загрузка', reply_markup=markup)
 
         if message.text == '🧃 Потребительский сектор 🇷🇺':
-
-            await show_Basic_RU()
+            await bot.send_message(message.chat.id, show_magnit_name(), show_magnit())
+            await bot.send_message(message.chat.id, show_x5group_name(), show_x5group())
+            await bot.send_message(message.chat.id, show_detskiy_mir_name(), show_detskiy_mir())
+            await bot.send_message(message.chat.id, show_fix_price_name(), show_fix_price())
+            await bot.send_message(message.chat.id, show_mvideo_name(), show_mvideo())
+            await bot.send_message(message.chat.id, show_cherkizovo_name(), show_cherkizovo())
 
         if message.text == '📱 IT сектор 🇷🇺':
+            await bot.send_message(message.chat.id, show_hhru_name(),show_headhunter())
+            await bot.send_message(message.chat.id, show_yandex_name(),show_yandex())
+            await bot.send_message(message.chat.id, show_mailru_name(),show_mailru())
+            await bot.send_message(message.chat.id, show_mts_name(),show_mts())
+            await bot.send_message(message.chat.id, show_ozon_name(),show_ozon())
+            await bot.send_message(message.chat.id, show_qiwi_name(),show_qiwi())
+            await bot.send_message(message.chat.id, show_rosseti_name(),show_rosseti())
+            await bot.send_message(message.chat.id, show_rostelecom_name(),show_rostelecom())
 
-            await show_IT_RU()
 
         if message.text == '🏦 Финансовый сектор 🇷🇺':
-
-            await show_Finance_RU()
+            await bot.send_message(message.chat.id, show_vtb_name(),show_vtb())
+            await bot.send_message(message.chat.id, show_tinkoff_bank_name(),show_tinkoff())
+            await bot.send_message(message.chat.id, show_mkb_name(),show_mkb())
+            await bot.send_message(message.chat.id, show_sber_name(),show_sber())
+            await bot.send_message(message.chat.id, show_sber_prevs_name(),show_sber_prevs())
+            await bot.send_message(message.chat.id, show_afk_name(),show_afk())
+            await bot.send_message(message.chat.id, show_spb_bank_name(),show_spb_bank())
 
         if message.text == '⛰ Промышленный сектор 🇷🇺':
-
-            await show_Industrial_RU()
+            await bot.send_message(message.chat.id, show_globaltrans_name(), show_globaltrans())
+            await bot.send_message(message.chat.id, show_petropavlovsk_name(), show_petropavlovsk())
+            await bot.send_message(message.chat.id, show_polymetal_name(), show_polymetal())
+            await bot.send_message(message.chat.id, show_alrosa_name(), show_alrosa())
+            await bot.send_message(message.chat.id, show_aeroflot_name(), show_aeroflot())
+            await bot.send_message(message.chat.id, show_gazprom_name(), show_gazprom())
+            await bot.send_message(message.chat.id, show_inter_rao_name(), show_inter_rao())
+            await bot.send_message(message.chat.id, show_lukoil_name(), show_lukoil())
+            await bot.send_message(message.chat.id, show_mmk_name(), show_mmk())
+            await bot.send_message(message.chat.id, show_nlmk_name(), show_nlmk())
+            await bot.send_message(message.chat.id, show_novatek_name(), show_novatek())
+            await bot.send_message(message.chat.id, show_nornikel_name(), show_nornikel())
+            await bot.send_message(message.chat.id, show_polyus_name(), show_polyus())
+            await bot.send_message(message.chat.id, show_rosneft_name(), show_rosneft())
+            await bot.send_message(message.chat.id, show_rusal_name(), show_rusal())
+            await bot.send_message(message.chat.id, show_rushydro_name(), show_rushydro())
+            await bot.send_message(message.chat.id, show_severstal_name(), show_severstal())
+            await bot.send_message(message.chat.id, show_surgutneft_name(), show_surgutneft())
+            await bot.send_message(message.chat.id, show_tatneft_name(), show_tatneft())
+            await bot.send_message(message.chat.id, show_transneft_name(), show_transneft())
+            await bot.send_message(message.chat.id, show_phosagro_name(), show_phosagro())
+            await bot.send_message(message.chat.id, show_fsk_name(), show_fsk())
 
         if message.text == '🏙 Недвижимость 🇷🇺':
-
-            await show_realEstate_RU()
+            await bot.send_message(message.chat.id, show_pik_name(), show_pik())
+            await bot.send_message(message.chat.id, show_lsr_name() , show_lsr())
 
         if message.text == '💊 Медицина 🇷🇺':
-
-            await show_Medicine_RU()
+            await bot.send_message(message.chat.id, show_life_name(), show_life())
+            await bot.send_message(message.chat.id, show_iskj_name(), show_iskj())
+            await bot.send_message(message.chat.id, show_mdmg_name(), show_mdmg())
+            await bot.send_message(message.chat.id, show_gemc_name(), show_gemc())
 
         if message.text == '◀️Назад':
-
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-
             rus_stocks = types.KeyboardButton('🇷🇺 Акции')
             usa_stocks = types.KeyboardButton('🇺🇸 Акции')
             china_stocks = types.KeyboardButton('🇨🇳 Акции')
             world_indexes = types.KeyboardButton('🌆 Мировые индексы')
             back_button = types.KeyboardButton('◀️Назад')
-
             markup.add(rus_stocks, usa_stocks, china_stocks, world_indexes, back_button)
-
             await bot.send_message(message.chat.id, '🕑Загрузка', reply_markup=markup)
 
         if message.text == '🇺🇸 Акции':
-
-            form = '🟢'
-            context = '➡️'
-            DOl = ' $'
-
-            for usa_company in range(len(usa_names)):
-                await bot.send_message(message.chat.id, text=form + usa_names[usa_company] + form + context + usa_prices[usa_names[usa_company]] + DOl)
+            await bot.send_message(message.chat.id, show_stock_USA_1_name(), show_alibaba())
+            await bot.send_message(message.chat.id, show_stock_USA_2_name(), show_amazon())
+            await bot.send_message(message.chat.id, show_stock_USA_3_name(), show_apple())
+            await bot.send_message(message.chat.id, show_stock_USA_4_name(), show_exxonmobil())
+            await bot.send_message(message.chat.id, show_stock_USA_5_name(), show_netflix())
+            await bot.send_message(message.chat.id, show_stock_USA_6_name(), show_metaplatforms())
+            await bot.send_message(message.chat.id, show_stock_USA_7_name(), show_nvidia())
+            await bot.send_message(message.chat.id, show_stock_USA_8_name(), show_ge())
+            await bot.send_message(message.chat.id, show_stock_USA_9_name(), show_google())
+            await bot.send_message(message.chat.id, show_stock_USA_10_name(), show_jp())
+            await bot.send_message(message.chat.id, show_stock_USA_11_name(), show_microsoft())
+            await bot.send_message(message.chat.id, show_stock_USA_12_name(), show_tesla())
+            await bot.send_message(message.chat.id, show_stock_USA_13_name(), show_walmart())
+            await bot.send_message(message.chat.id,show_stock_USA_14_name(), show_palantir())
 
         if message.text == '🇨🇳 Акции':
-
-            context = '➡️'
-            DOl = ' $'
-
-            await bot.send_message(message.chat.id, text='Загружаю котировки лидеров торгов 🇨🇳')
-            time.sleep(0.5)
-            await bot.send_message(message.chat.id, text=str(li_auto_name) + context + str(li_auto_usd) + DOl)
-            await bot.send_message(message.chat.id, text=str(baidu_name) + context + str(baidu_usd) + DOl)
-            await bot.send_message(message.chat.id, text=str(JD_name) + context + str(JD_usd) + DOl)
-            await bot.send_message(message.chat.id, text=str(bilibili_name) + context + str(bilibili_usd) + DOl)
-            await bot.send_message(message.chat.id, text=str(tencent_name) + context + str(tencent_usd) + DOl)
-            await bot.send_message(message.chat.id, text=str(nio_name) + context + str(nio_usd) +  DOl)
-            await bot.send_message(message.chat.id, text=str(xpeng_name) + context + str(xpeng_usd) + DOl)
-
+            await bot.send_message(message.chat.id, show_li_name(), show_li())
+            await bot.send_message(message.chat.id, show_baidu_name(), show_baidu())
+            await bot.send_message(message.chat.id, show_JD_name(), show_jd())
+            await bot.send_message(message.chat.id, show_bilibili_name(), show_bilibili())
+            await bot.send_message(message.chat.id, show_tencent_name(), show_tencent())
+            await bot.send_message(message.chat.id, show_nio_name(), show_nio())
+            await bot.send_message(message.chat.id, show_xpeng_name(), show_xpeng())
 
         if message.text == '🌆 Мировые индексы':
-
-            index = '🟢'
-            context = '➡️'
-
-            for indexes in range(len(array_index)):
-                await bot.send_message(message.chat.id, text=index + array_index[indexes] + index + context + prices_index[array_index[indexes]])
+            await bot.send_message(message.chat.id, show_MOEX_name(), show_MOEX())
+            await bot.send_message(message.chat.id, show_SnP500_name(), show_snp500())
+            await bot.send_message(message.chat.id, show_NASDAQ_name(), show_nasdaq())
+            await bot.send_message(message.chat.id, show_SHANGAI_name(), show_shanghai())
 
         if message.text == '◀️Назад':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -291,44 +245,30 @@ async def process_menu(message: types.message):
             stocks_button = types.KeyboardButton('💸 Курс акций')
             cryptocurrency_button = types.KeyboardButton('💎 Курс криптовалют')
             information_button = types.KeyboardButton('⚙️ Разработчик')
-
             markup.add(currency_button, stocks_button, cryptocurrency_button, information_button)
-
             await bot.send_message(message.chat.id, '🕑Загружаю', reply_markup=markup)
 
-
         if message.text == '💎 Курс криптовалют':
-
-            context = '➡'
-            char = '🔷'
-            USD = ' $'
-
             await bot.send_message(message.chat.id, '🕐🔜 Загружаю криптобазу...')
-            time.sleep(0.5)
-            await bot.send_message(message.chat.id, text='🔷BTC-USD🔷 ➡️' + str(bitcoin_dollar) + USD)
-            await bot.send_message(message.chat.id, text='🔷ETH-USD🔷 ➡️' + str(ethereum_dollar) + USD)
-            await bot.send_message(message.chat.id, text='🔷LTC-USD🔷 ➡️' + str(litecoin_dollar) + USD)
-            await bot.send_message(message.chat.id, text='🔷ADA-USD🔷 ➡️' + str(cardano_dollar) + USD)
-            await bot.send_message(message.chat.id, text='🔷XRP-USD🔷 ➡️' + str(xrp_dollar) + USD)
-            await bot.send_message(message.chat.id, text='🔷DOGE-USD🔷 ➡️' + str(doge_dollar) + USD)
-            await bot.send_message(message.chat.id, text=char + str(bnb_name) + char + context + str(bnb_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(tether_name) + char + context + str(tether_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(solana_name) + char + context +str(solana_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(terra_name) + char + context + str(terra_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(uniswap_name) + char + context + str(uniswap_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(polkadot_name) + char + context + str(polkadot_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(avalanche_name) + char + context + str(avalanche_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(chainlink_name) + char + context + str(chainlink_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(tron_name) + char + context + str(tron_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(shiba_name) + char + context + str(shiba_usd) + USD)
-            await bot.send_message(message.chat.id, text=char + str(ethereumClassic_name) + context + str(ethereumClassic_usd) + USD)
+            await bot.send_message(message.chat.id, show_bitcoin_name(), show_bitcoin())
+            await bot.send_message(message.chat.id, show_ethereum_name(), show_ethereum())
+            await bot.send_message(message.chat.id, show_litecoin_name(), show_litecoin())
+            await bot.send_message(message.chat.id, show_cardano_name(), show_cardano())
+            await bot.send_message(message.chat.id, show_xrp_name(), show_xrp())
+            await bot.send_message(message.chat.id, show_doge_name(), show_doge())
+            await bot.send_message(message.chat.id, show_bnb_name(), show_bnb())
+            await bot.send_message(message.chat.id, show_tether_name(), show_tether())
+            await bot.send_message(message.chat.id, show_solana_name(), show_solana())
+            await bot.send_message(message.chat.id, show_terra_name(), show_terra())
+            await bot.send_message(message.chat.id, show_uniswap_name(), show_uniswap())
+            await bot.send_message(message.chat.id, show_polkadot_name(), show_dot())
+            await bot.send_message(message.chat.id, show_avalanche_name(), show_avalanche())
+            await bot.send_message(message.chat.id, show_chainlink_name(), show_chainlink())
+            await bot.send_message(message.chat.id, show_tron_name(), show_tron())
+            await bot.send_message(message.chat.id, show_shiba_name(), show_shiba())
 
         if message.text == '⚙️ Разработчик':
-
             await bot.send_message(message.chat.id, text='🌐 Разработчик: Миллер Ян Станиславович\n🏙 Студент НИУ ВШЭ, МИЭМ Информационная безопасность\n📚Уч.группа: БИБ211')
-
-
-
 
 
 if __name__ == '__main__':
