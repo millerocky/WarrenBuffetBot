@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 # Ключ суперюзера моего пк
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'}
-USD = '$'
+USD = 'USD'
 
 # Парсинг данных о котировках акций - лидеров торгов фондового рынка Китая
 'China лидер торгов №1'

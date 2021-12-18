@@ -66,13 +66,11 @@ from WarrenBuffetBot.world_indexes.world_indexes import show_MOEX, show_snp500, 
 
 class TestShowStocks(TestCase):
 
-    def test_currencyTickers(self):
+    def test_cryptocurrencies(self):
         '''
         :return: Тестирование работыvфункций по выводу тикеров-названий
         '''
-        self.assertRegex(dollar_rub, '\d+\,\d*RUB')
-        self.assertRegex(euro_rub, '\d+\,\d*RUB')
-        self.assertRegex(bitcoin_usd, '\d+\,\d*USD')
+        self.assertRegex(bitcoin_usd, '\d+(\,|\.)\d*USD')
         self.assertRegex(ethereum_usd, '\d+\,\d*USD')
         self.assertRegex(litecoin_usd, '\d+\,\d*USD')
         self.assertRegex(cardano_usd, '\d+\,\d*USD')
@@ -88,6 +86,12 @@ class TestShowStocks(TestCase):
         self.assertRegex(chainlink_usd, '\d+\,\d*USD')
         self.assertRegex(tron_usd, '\d+\,\d*USD')
         self.assertRegex(shiba_usd, '\d+\,\d*USD')
+
+    def test_currency(self):
+        self.assertRegex(dollar_rub, '\d+\,\d*RUB')
+        self.assertRegex(euro_rub, '\d+\,\d*RUB')
+
+    def test_stocksRU(self):
         self.assertRegex(magnit_rub, '\d+\,\d*RUB')
         self.assertRegex(x5group_rub, '\d+\,\d*RUB')
         self.assertRegex(detskiy_mir_rub, '\d+\,\d*RUB')
@@ -99,6 +103,75 @@ class TestShowStocks(TestCase):
         self.assertRegex(mailru_rub, '\d+\,\d*RUB')
         self.assertRegex(mts_rub, '\d+\,\d*RUB')
         self.assertRegex(ozon_rub, '\d+\,\d*RUB')
+        self.assertRegex(qiwi_rub, '\d+\,\d*RUB')
+        self.assertRegex(rosseti_rub, '\d+\,\d*RUB')
+        self.assertRegex(rostelecom_rub, '\d+\,\d*RUB')
+        self.assertRegex(vtb_rub, '\d+\,\d*RUB')
+        self.assertRegex(tinkoff_bank_rub, '\d+\,\d*RUB')
+        self.assertRegex(mkb_rub, '\d+\,\d*RUB')
+        self.assertRegex(sber_rub, '\d+\,\d*RUB')
+        self.assertRegex(sber_prevs_rub, '\d+\,\d*RUB')
+        self.assertRegex(afk_rub, '\d+\,\d*RUB')
+        self.assertRegex(spb_bank_rub, '\d+\,\d*RUB')
+        self.assertRegex(globaltrans_rub, '\d+\,\d*RUB')
+        self.assertRegex(petropavlovsk_rub, '\d+\,\d*RUB')
+        self.assertRegex(polymetal_rub, '\d+\,\d*RUB')
+        self.assertRegex(alrosa_rub, '\d+\,\d*RUB')
+        self.assertRegex(aeroflot_rub, '\d+\,\d*RUB')
+        self.assertRegex(gazprom_rub, '\d+\,\d*RUB')
+        self.assertRegex(inter_rao_rub, '\d+\,\d*RUB')
+        self.assertRegex(lukoil_rub, '\d+\,\d*RUB')
+        self.assertRegex(mmk_rub, '\d+\,\d*RUB')
+        self.assertRegex(nlmk_rub, '\d+\,\d*RUB')
+        self.assertRegex(novatek_rub, '\d+\,\d*RUB')
+        self.assertRegex(nornikel_rub, '\d+\,\d*RUB')
+        self.assertRegex(polyus_rub, '\d+\,\d*RUB')
+        self.assertRegex(rosneft_rub, '\d+\,\d*RUB')
+        self.assertRegex(rusal_rub, '\d+\,\d*RUB')
+        self.assertRegex(rushydro_rub, '\d+\,\d*RUB')
+        self.assertRegex(severstal_rub, '\d+\,\d*RUB')
+        self.assertRegex(surgutneft_rub, '\d+\,\d*RUB')
+        self.assertRegex(tatneft_rub, '\d+\,\d*RUB')
+        self.assertRegex(transneft_rub, '\d+(\,|\.)\d*RUB')
+        self.assertRegex(phosagro_rub, '\d+\,\d*RUB')
+        self.assertRegex(fsk_rub, '\d+\,\d*RUB')
+        self.assertRegex(pik_rub, '\d+\,\d*RUB')
+        self.assertRegex(lsr_rub, '\d+\,\d*RUB')
+        self.assertRegex(life_rub, '\d+\,\d*RUB')
+        self.assertRegex(iskj_rub, '\d+\,\d*RUB')
+        self.assertRegex(mdmg_rub, '\d+\,\d*RUB')
+        self.assertRegex(gemc_rub, '\d+\,\d*RUB')
+
+    def test_stocksUSA(self):
+        self.assertRegex(stock_USA_1_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_2_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_3_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_4_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_5_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_6_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_7_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_8_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_9_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_10_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_11_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_12_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_13_dollar, '\d+\,\d*USD')
+        self.assertRegex(stock_USA_14_dollar, '\d+\,\d*USD')
+
+    def test_stocksChina(self):
+        self.assertRegex(li_auto_usd, '\d+\,\d*USD')
+        self.assertRegex(baidu_usd, '\d+\,\d*USD')
+        self.assertRegex(JD_usd, '\d+\,\d*USD')
+        self.assertRegex(bilibili_usd, '\d+\,\d*USD')
+        self.assertRegex(tencent_usd, '\d+\,\d*USD')
+        self.assertRegex(nio_usd, '\d+\,\d*USD')
+        self.assertRegex(xpeng_usd, '\d+\,\d*USD')
+
+    def test_indexies(self):
+        self.assertRegex(MOEX_index_rub, '\d+\,\d*RUB')
+        self.assertRegex(SnP500_index, '\d+\,\d*USD')
+        self.assertRegex(NASDAQ_index, '\d+\,\d*USD')
+        self.assertRegex(SHANGAI_index, '\d+\,\d*USD')
 
     def test_values(self):
         '''
