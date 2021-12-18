@@ -65,6 +65,41 @@ from WarrenBuffetBot.world_indexes.world_indexes import show_MOEX, show_snp500, 
 
 
 class TestShowStocks(TestCase):
+
+    def test_currencyTickers(self):
+        '''
+        :return: Тестирование работыvфункций по выводу тикеров-названий
+        '''
+        self.assertRegex(dollar_rub, '\d+\,\d*RUB')
+        self.assertRegex(euro_rub, '\d+\,\d*RUB')
+        self.assertRegex(bitcoin_usd, '\d+\,\d*USD')
+        self.assertRegex(ethereum_usd, '\d+\,\d*USD')
+        self.assertRegex(litecoin_usd, '\d+\,\d*USD')
+        self.assertRegex(cardano_usd, '\d+\,\d*USD')
+        self.assertRegex(xrp_usd, '\d+\,\d*USD')
+        self.assertRegex(doge_usd, '\d+\,\d*USD')
+        self.assertRegex(bnb_usd, '\d+\,\d*USD')
+        self.assertRegex(tether_usd, '\d+\,\d*USD')
+        self.assertRegex(solana_usd, '\d+\,\d*USD')
+        self.assertRegex(terra_usd, '\d+\,\d*USD')
+        self.assertRegex(uniswap_usd, '\d+\,\d*USD')
+        self.assertRegex(polkadot_usd, '\d+\,\d*USD')
+        self.assertRegex(avalanche_usd, '\d+\,\d*USD')
+        self.assertRegex(chainlink_usd, '\d+\,\d*USD')
+        self.assertRegex(tron_usd, '\d+\,\d*USD')
+        self.assertRegex(shiba_usd, '\d+\,\d*USD')
+        self.assertRegex(magnit_rub, '\d+\,\d*RUB')
+        self.assertRegex(x5group_rub, '\d+\,\d*RUB')
+        self.assertRegex(detskiy_mir_rub, '\d+\,\d*RUB')
+        self.assertRegex(fix_price_rub, '\d+\,\d*RUB')
+        self.assertRegex(mvideo_rub, '\d+\,\d*RUB')
+        self.assertRegex(cherkizovo_rub, '\d+\,\d*RUB')
+        self.assertRegex(hhru_rub, '\d+\,\d*RUB')
+        self.assertRegex(yandex_rub, '\d+\,\d*RUB')
+        self.assertRegex(mailru_rub, '\d+\,\d*RUB')
+        self.assertRegex(mts_rub, '\d+\,\d*RUB')
+        self.assertRegex(ozon_rub, '\d+\,\d*RUB')
+
     def test_values(self):
         '''
         :return: Тестирование работы всех функций по выводу названий интсрументов и их котировок
