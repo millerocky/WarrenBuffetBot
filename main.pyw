@@ -54,11 +54,13 @@ async def bot_start(message: types.message):
     :return: Запуск меню бота
     '''
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    currency_button = types.KeyboardButton('💰 Курс валют')
-    stocks_button = types.KeyboardButton('💸 Курс акций')
-    cryptocurrency_button = types.KeyboardButton('💎 Курс криптовалют')
-    information_button = types.KeyboardButton('⚙️ Разработчик')
-    markup.add(currency_button, stocks_button, cryptocurrency_button, information_button)
+    currencyButton = types.KeyboardButton('💰 Курс валют')
+    stocksButton = types.KeyboardButton('💸 Курс акций')
+    cryptocurrencyButton = types.KeyboardButton('💎 Курс криптовалют')
+    informationButton = types.KeyboardButton('⚙️ Разработчик')
+    developerUrlButton = types.InlineKeyboardButton(text='Связаться с разработчиком',
+                                                    url='https://coruscating-faun-401a0c.netlify.app/')
+    markup.add(currencyButton, stocksButton, cryptocurrencyButton, informationButton, developerUrlButton)
     await bot.send_message(message.chat.id, 'Уоррен Баффетт приветствует тебя в мире инвестиций, {0.first_name}'.format(
         message.from_user), reply_markup=markup)
 
@@ -72,10 +74,17 @@ async def process_menu(message: types.message):
     '''
     if message.chat.type == 'private':
 
+        if message.text == 'Связаться с разработчиком':
+            markup = types.InlineKeyboardMarkup()
+            developerUrlButton = types.InlineKeyboardButton(text='Связаться с разработчиком',
+                                                            url='https://coruscating-faun-401a0c.netlify.app/')
+            markup.add(developerUrlButton)
+            await bot.send_message(message.chat.id, text='Переходите на мой сайт ⬇️', reply_markup=markup)
+
         if message.text == '💰 Курс валют':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            back_button = types.KeyboardButton('◀️Назад')
-            markup.add(back_button)
+            backButton = types.KeyboardButton('◀️Назад')
+            markup.add(backButton)
             await bot.send_message(message.chat.id, '🕑 Загружаю курсы валют\n 🟩Загрузка...', reply_markup=markup)
             await bot.send_message(message.chat.id,
                                    text='Доллар к рублю: ' + usd_rub.get_currency_value() + ' руб.' + '\n'
@@ -83,34 +92,35 @@ async def process_menu(message: types.message):
 
         if message.text == '◀️Назад':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            currency_button = types.KeyboardButton('💰 Курс валют')
-            stocks_button = types.KeyboardButton('💸 Курс акций')
-            cryptocurrency_button = types.KeyboardButton('💎 Курс криптовалют')
-            information_button = types.KeyboardButton('⚙️ Разработчик')
-            markup.add(currency_button, stocks_button, cryptocurrency_button, information_button)
+            currencyButton = types.KeyboardButton('💰 Курс валют')
+            stocksButton = types.KeyboardButton('💸 Курс акций')
+            cryptocurrencyButton = types.KeyboardButton('💎 Курс криптовалют')
+            informationButton = types.KeyboardButton('⚙️ Разработчик')
+            developerUrlButton = types.InlineKeyboardButton(text='Связаться с разработчиком',
+                                                            url='https://coruscating-faun-401a0c.netlify.app/')
+            markup.add(currencyButton, stocksButton, cryptocurrencyButton, informationButton, developerUrlButton)
             await bot.send_message(message.chat.id, '◀️Назад', reply_markup=markup)
 
         if message.text == '💸 Курс акций':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            rus_stocks = types.KeyboardButton('🇷🇺 Акции')
-            usa_stocks = types.KeyboardButton('🇺🇸 Акции')
-            china_stocks = types.KeyboardButton('🇨🇳 Акции')
-            world_indexes = types.KeyboardButton('🌆 Мировые индексы')
-            back_button = types.KeyboardButton('◀️Назад')
-            markup.add(rus_stocks, usa_stocks, china_stocks, world_indexes, back_button)
+            rusStocks = types.KeyboardButton('🇷🇺 Акции')
+            usaStocks = types.KeyboardButton('🇺🇸 Акции')
+            chinaStocks = types.KeyboardButton('🇨🇳 Акции')
+            worldIndecies = types.KeyboardButton('🌆 Мировые индексы')
+            backButton = types.KeyboardButton('◀️Назад')
+            markup.add(rusStocks, usaStocks, chinaStocks, worldIndecies, backButton)
             await bot.send_message(message.chat.id, '🕑Загрузка', reply_markup=markup)
 
         if message.text == '🇷🇺 Акции':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            basic_sector_rus = types.KeyboardButton('🧃 Потребительский сектор 🇷🇺')
-            IT_sector_rus = types.KeyboardButton('📱 IT сектор 🇷🇺')
-            finance_sector_rus = types.KeyboardButton('🏦 Финансовый сектор 🇷🇺')
-            industrial_sector_rus = types.KeyboardButton('⛰ Промышленный сектор 🇷🇺')
-            realEstate_sector_rus = types.KeyboardButton('🏙 Недвижимость 🇷🇺')
-            medicine_sector_rus = types.KeyboardButton('💊 Медицина 🇷🇺')
-            back_button = types.KeyboardButton('◀️Назад')
-            markup.add(basic_sector_rus, IT_sector_rus, finance_sector_rus, industrial_sector_rus,
-                       realEstate_sector_rus, medicine_sector_rus, back_button)
+            basicSectorRus = types.KeyboardButton('🧃 Потребительский сектор 🇷🇺')
+            ItSectorRus = types.KeyboardButton('📱 IT сектор 🇷🇺')
+            financeSectorRus = types.KeyboardButton('🏦 Финансовый сектор 🇷🇺')
+            industrialSectorRus = types.KeyboardButton('⛰ Промышленный сектор 🇷🇺')
+            realEstateSectorRus = types.KeyboardButton('🏙 Недвижимость 🇷🇺')
+            backButton = types.KeyboardButton('◀️Назад')
+            markup.add(basicSectorRus, ItSectorRus, financeSectorRus, industrialSectorRus,
+                       realEstateSectorRus, backButton)
             await bot.send_message(message.chat.id, text='🕑Загрузка', reply_markup=markup)
 
         if message.text == '🧃 Потребительский сектор 🇷🇺':
@@ -170,12 +180,12 @@ async def process_menu(message: types.message):
 
         if message.text == '◀️Назад':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            rus_stocks = types.KeyboardButton('🇷🇺 Акции')
-            usa_stocks = types.KeyboardButton('🇺🇸 Акции')
-            china_stocks = types.KeyboardButton('🇨🇳 Акции')
-            world_indexes = types.KeyboardButton('🌆 Мировые индексы')
-            back_button = types.KeyboardButton('◀️Назад')
-            markup.add(rus_stocks, usa_stocks, china_stocks, world_indexes, back_button)
+            rusStocks = types.KeyboardButton('🇷🇺 Акции')
+            usaStocks = types.KeyboardButton('🇺🇸 Акции')
+            chinaStocks = types.KeyboardButton('🇨🇳 Акции')
+            worldIndecies = types.KeyboardButton('🌆 Мировые индексы')
+            backButton = types.KeyboardButton('◀️Назад')
+            markup.add(rusStocks, usaStocks, chinaStocks, worldIndecies, backButton)
             await bot.send_message(message.chat.id, '🕑Загрузка', reply_markup=markup)
 
         if message.text == '🇺🇸 Акции':
@@ -212,11 +222,13 @@ async def process_menu(message: types.message):
 
         if message.text == '◀️Назад':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            currency_button = types.KeyboardButton('💰 Курс валют')
-            stocks_button = types.KeyboardButton('💸 Курс акций')
-            cryptocurrency_button = types.KeyboardButton('💎 Курс криптовалют')
-            information_button = types.KeyboardButton('⚙️ Разработчик')
-            markup.add(currency_button, stocks_button, cryptocurrency_button, information_button)
+            currencyButton = types.KeyboardButton('💰 Курс валют')
+            stocksButton = types.KeyboardButton('💸 Курс акций')
+            cryptocurrencyButton = types.KeyboardButton('💎 Курс криптовалют')
+            informationButton = types.KeyboardButton('⚙️ Разработчик')
+            developerUrlButton = types.InlineKeyboardButton(text='Связаться с разработчиком',
+                                                            url='https://coruscating-faun-401a0c.netlify.app/')
+            markup.add(currencyButton, stocksButton, cryptocurrencyButton, informationButton, developerUrlButton)
             await bot.send_message(message.chat.id, '🕑Загружаю', reply_markup=markup)
 
     if message.text == '💎 Курс криптовалют':
