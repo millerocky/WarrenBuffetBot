@@ -2,10 +2,14 @@
 from aiogram import types, Bot, Dispatcher, executor
 import config
 
-# Подключаю функции по показу котировок валютных пар
-from WarrenBuffetBot.currency.currency import show_USD_RUB, show_EUR_RUB, show_ticker_usd, show_ticker_euro
-
 # Подключаю функции по показу котировок российских акций финансового сектора из моего модуля, где происходит основной парсинг
+
+# Подключаю функции по показу котировок с названиями криптовалют и их котировками из моего модуля, где происходит основной парсинг
+from WarrenBuffetBot.cryptocurrencies.crypto import bitcoin, ethereum, litecoin, cardano, xrp, doge, bnb, tether, \
+    solana, luna, uniswap, polkadot, avalanche, chainlink, tron, shiba
+# Подключаю функции по показу котировок валютных пар к рублю
+from WarrenBuffetBot.currency.currency import usd_rub, euro_rub
+
 from WarrenBuffetBot.stocksRU.finance_sector_RU.stocks_finance_sector import show_vtb, show_tinkoff, show_mkb, \
     show_sber, show_sber_prevs, show_afk, show_spb_bank, show_vtb_name, show_tinkoff_bank_name, \
     show_mkb_name, show_sber_name, show_sber_prevs_name, show_afk_name, show_spb_bank_name
@@ -40,14 +44,6 @@ from WarrenBuffetBot.stocks_China.stock_China import show_li, show_baidu, show_j
     show_nio, show_xpeng, show_li_name, show_baidu_name, show_JD_name, show_bilibili_name, show_tencent_name, \
     show_nio_name, show_xpeng_name
 
-# Подключаю функции по показу котировок с названиями криптовалют и их котировками из моего модуля, где происходит основной парсинг
-from cryptocurrencies.crypto import show_bitcoin, show_ethereum, show_litecoin, \
-    show_cardano, show_xrp, show_doge, show_bnb, show_tether, show_solana, show_terra, show_uniswap, show_dot, \
-    show_avalanche, show_chainlink, show_tron, show_shiba, show_bitcoin_name, show_ethereum_name, show_litecoin_name, \
-    show_cardano_name, show_xrp_name, show_doge_name, show_bnb_name, show_tether_name, show_solana_name, \
-    show_terra_name, show_uniswap_name, show_polkadot_name, show_avalanche_name, show_chainlink_name, show_tron_name, \
-    show_shiba_name
-
 # Подключаю функции по показу котировок американских акций из моего модуля, где происходит основной парсинг
 from stocksUSA.stocks_USA import show_alibaba, show_amazon, show_apple, \
     show_exxonmobil, show_netflix, show_metaplatforms, show_nvidia, show_ge, show_google, show_jp, show_microsoft, \
@@ -66,6 +62,7 @@ bot = Bot(config.TOKEN)
 # Создаю диспетчера, который отслеживает взаимодействие бота с пользователем
 dp = Dispatcher(bot)
 
+
 # Дескриптор(диспетчер отслеживает все стартовые нажатия на кнопки)
 @dp.message_handler(commands=['start'])
 async def bot_start(message: types.message):
@@ -79,7 +76,8 @@ async def bot_start(message: types.message):
     cryptocurrency_button = types.KeyboardButton('💎 Курс криптовалют')
     information_button = types.KeyboardButton('⚙️ Разработчик')
     markup.add(currency_button, stocks_button, cryptocurrency_button, information_button)
-    await bot.send_message(message.chat.id, 'Уоррен Баффетт приветствует тебя в мире инвестиций, {0.first_name}'.format(message.from_user), reply_markup=markup)
+    await bot.send_message(message.chat.id, 'Уоррен Баффетт приветствует тебя в мире инвестиций, {0.first_name}'.format(
+        message.from_user), reply_markup=markup)
 
 
 # Декскриптор - обработчик данных от пользователя
@@ -93,17 +91,12 @@ async def process_menu(message: types.message):
 
         if message.text == '💰 Курс валют':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            dollar_button = types.KeyboardButton('💵 USD/RUB')
-            euro_button = types.KeyboardButton('💶 EUR/RUB')
             back_button = types.KeyboardButton('◀️Назад')
-            markup.add(dollar_button, euro_button, back_button)
+            markup.add(back_button)
             await bot.send_message(message.chat.id, '🕑 Загружаю курсы валют\n 🟩Загрузка...', reply_markup=markup)
-
-        if message.text == '💵 USD/RUB':
-            await bot.send_message(message.chat.id, text=show_ticker_usd() + show_USD_RUB())
-
-        if message.text == '💶 EUR/RUB':
-            await bot.send_message(message.chat.id, text=show_ticker_euro() + show_EUR_RUB())
+            await bot.send_message(message.chat.id,
+                                   text='Доллар к рублю: ' + usd_rub.get_currency_value() + ' руб.' + '\n'
+                                                                                                      'Евро к рублю: ' + euro_rub.get_currency_value() + ' руб.')
 
         if message.text == '◀️Назад':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -124,152 +117,140 @@ async def process_menu(message: types.message):
             markup.add(rus_stocks, usa_stocks, china_stocks, world_indexes, back_button)
             await bot.send_message(message.chat.id, '🕑Загрузка', reply_markup=markup)
 
-        if message.text == '🇷🇺 Акции':
-            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            basic_sector_rus = types.KeyboardButton('🧃 Потребительский сектор 🇷🇺')
-            IT_sector_rus = types.KeyboardButton('📱 IT сектор 🇷🇺')
-            finance_sector_rus = types.KeyboardButton('🏦 Финансовый сектор 🇷🇺')
-            industrial_sector_rus = types.KeyboardButton('⛰ Промышленный сектор 🇷🇺')
-            realEstate_sector_rus = types.KeyboardButton('🏙 Недвижимость 🇷🇺')
-            medicine_sector_rus = types.KeyboardButton('💊 Медицина 🇷🇺')
-            back_button = types.KeyboardButton('◀️Назад')
-            markup.add(basic_sector_rus, IT_sector_rus, finance_sector_rus, industrial_sector_rus, realEstate_sector_rus, medicine_sector_rus, back_button)
-            await bot.send_message(message.chat.id, text='🕑Загрузка', reply_markup=markup)
+        # if message.text == '🇷🇺 Акции':
+        # markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        #  basic_sector_rus = types.KeyboardButton('🧃 Потребительский сектор 🇷🇺')
+        # IT_sector_rus = types.KeyboardButton('📱 IT сектор 🇷🇺')
+        # finance_sector_rus = types.KeyboardButton('🏦 Финансовый сектор 🇷🇺')
+        # industrial_sector_rus = types.KeyboardButton('⛰ Промышленный сектор 🇷🇺')
+        # realEstate_sector_rus = types.KeyboardButton('🏙 Недвижимость 🇷🇺')
+        # medicine_sector_rus = types.KeyboardButton('💊 Медицина 🇷🇺')
+        # back_button = types.KeyboardButton('◀️Назад')
+        # markup.add(basic_sector_rus, IT_sector_rus, finance_sector_rus, industrial_sector_rus,
+        #          realEstate_sector_rus, medicine_sector_rus, back_button)
+        # await bot.send_message(message.chat.id, text='🕑Загрузка', reply_markup=markup)
 
-        if message.text == '🧃 Потребительский сектор 🇷🇺':
-            await bot.send_message(message.chat.id, text=show_magnit_name() + show_magnit())
-            await bot.send_message(message.chat.id, text=show_x5group_name() + show_x5group())
-            await bot.send_message(message.chat.id, text=show_detskiy_mir_name() + show_detskiy_mir())
-            await bot.send_message(message.chat.id, text=show_fix_price_name() + show_fix_price())
-            await bot.send_message(message.chat.id, text=show_mvideo_name() + show_mvideo())
-            await bot.send_message(message.chat.id, text=show_cherkizovo_name() + show_cherkizovo())
+        # if message.text == '🧃 Потребительский сектор 🇷🇺':
+        #   await bot.send_message(message.chat.id, text=show_magnit_name() + show_magnit())
+        # await bot.send_message(message.chat.id, text=show_x5group_name() + show_x5group())
+        # await bot.send_message(message.chat.id, text=show_detskiy_mir_name() + show_detskiy_mir())
+        # await bot.send_message(message.chat.id, text=show_fix_price_name() + show_fix_price())
+        # await bot.send_message(message.chat.id, text=show_mvideo_name() + show_mvideo())
+        # await bot.send_message(message.chat.id, text=show_cherkizovo_name() + show_cherkizovo())
 
-        if message.text == '📱 IT сектор 🇷🇺':
-            await bot.send_message(message.chat.id, text=show_hhru_name() + show_headhunter())
-            await bot.send_message(message.chat.id, text=show_yandex_name() + show_yandex())
-            await bot.send_message(message.chat.id, text=show_mailru_name() + show_mailru())
-            await bot.send_message(message.chat.id, text=show_mts_name() + show_mts())
-            await bot.send_message(message.chat.id, text=show_ozon_name() + show_ozon())
-            await bot.send_message(message.chat.id, text=show_qiwi_name() + show_qiwi())
-            await bot.send_message(message.chat.id, text=show_rosseti_name() + show_rosseti())
-            await bot.send_message(message.chat.id, text=show_rostelecom_name() + show_rostelecom())
+        # if message.text == '📱 IT сектор 🇷🇺':
+        # await bot.send_message(message.chat.id, text=show_hhru_name() + show_headhunter())
+        # await bot.send_message(message.chat.id, text=show_yandex_name() + show_yandex())
+        # await bot.send_message(message.chat.id, text=show_mailru_name() + show_mailru())
+        # await bot.send_message(message.chat.id, text=show_mts_name() + show_mts())
+        # await bot.send_message(message.chat.id, text=show_ozon_name() + show_ozon())
+        # await bot.send_message(message.chat.id, text=show_qiwi_name() + show_qiwi())
+        # await bot.send_message(message.chat.id, text=show_rosseti_name() + show_rosseti())
+        # await bot.send_message(message.chat.id, text=show_rostelecom_name() + show_rostelecom())
 
+        # if message.text == '🏦 Финансовый сектор 🇷🇺':
+        #   await bot.send_message(message.chat.id, text=show_vtb_name() + show_vtb())
+        # await bot.send_message(message.chat.id, text=show_tinkoff_bank_name() + show_tinkoff())
+        # await bot.send_message(message.chat.id, text=show_mkb_name() + show_mkb())
+        # await bot.send_message(message.chat.id, text=show_sber_name() + show_sber())
+        # await bot.send_message(message.chat.id, text=show_sber_prevs_name() + show_sber_prevs())
+        # await bot.send_message(message.chat.id, text=show_afk_name() + show_afk())
+        # await bot.send_message(message.chat.id, text=show_spb_bank_name() + show_spb_bank())
 
-        if message.text == '🏦 Финансовый сектор 🇷🇺':
-            await bot.send_message(message.chat.id, text=show_vtb_name() + show_vtb())
-            await bot.send_message(message.chat.id, text=show_tinkoff_bank_name() + show_tinkoff())
-            await bot.send_message(message.chat.id, text=show_mkb_name() + show_mkb())
-            await bot.send_message(message.chat.id, text=show_sber_name() + show_sber())
-            await bot.send_message(message.chat.id, text=show_sber_prevs_name() + show_sber_prevs())
-            await bot.send_message(message.chat.id, text=show_afk_name() + show_afk())
-            await bot.send_message(message.chat.id, text=show_spb_bank_name() + show_spb_bank())
+        # if message.text == '⛰ Промышленный сектор 🇷🇺':
+        # await bot.send_message(message.chat.id, text=show_globaltrans_name() + show_globaltrans())
+        # await bot.send_message(message.chat.id, text=show_petropavlovsk_name() + show_petropavlovsk())
+        # await bot.send_message(message.chat.id, text=show_polymetal_name() + show_polymetal())
+        # await bot.send_message(message.chat.id, text=show_alrosa_name() + show_alrosa())
+        # await bot.send_message(message.chat.id, text=show_aeroflot_name() + show_aeroflot())
+        # await bot.send_message(message.chat.id, text=show_gazprom_name() + show_gazprom())
+        # await bot.send_message(message.chat.id, text=show_inter_rao_name() + show_inter_rao())
+        # await bot.send_message(message.chat.id, text=show_lukoil_name() + show_lukoil())
+        # await bot.send_message(message.chat.id, text=show_mmk_name() + show_mmk())
+        # await bot.send_message(message.chat.id, text=show_nlmk_name() + show_nlmk())
+        # await bot.send_message(message.chat.id, text=show_novatek_name() + show_novatek())
+        # await bot.send_message(message.chat.id, text=show_nornikel_name() + show_nornikel())
+        # await bot.send_message(message.chat.id, text=show_polyus_name() + show_polyus())
+        # await bot.send_message(message.chat.id, text=show_rosneft_name() + show_rosneft())
+        # await bot.send_message(message.chat.id, text=show_rusal_name() + show_rusal())
+        # await bot.send_message(message.chat.id, text=show_rushydro_name() + show_rushydro())
+        # await bot.send_message(message.chat.id, text=show_severstal_name() + show_severstal())
+        # await bot.send_message(message.chat.id, text=show_surgutneft_name() + show_surgutneft())
+        # await bot.send_message(message.chat.id, text=show_tatneft_name() + show_tatneft())
+        # await bot.send_message(message.chat.id, text=show_transneft_name() + show_transneft())
+        # await bot.send_message(message.chat.id, text=show_phosagro_name() + show_phosagro())
+        # await bot.send_message(message.chat.id, text=show_fsk_name() + show_fsk())
 
-        if message.text == '⛰ Промышленный сектор 🇷🇺':
-            await bot.send_message(message.chat.id, text=show_globaltrans_name() + show_globaltrans())
-            await bot.send_message(message.chat.id, text=show_petropavlovsk_name() + show_petropavlovsk())
-            await bot.send_message(message.chat.id, text=show_polymetal_name() + show_polymetal())
-            await bot.send_message(message.chat.id, text=show_alrosa_name() + show_alrosa())
-            await bot.send_message(message.chat.id, text=show_aeroflot_name() + show_aeroflot())
-            await bot.send_message(message.chat.id, text=show_gazprom_name() + show_gazprom())
-            await bot.send_message(message.chat.id, text=show_inter_rao_name() + show_inter_rao())
-            await bot.send_message(message.chat.id, text=show_lukoil_name() + show_lukoil())
-            await bot.send_message(message.chat.id, text=show_mmk_name() + show_mmk())
-            await bot.send_message(message.chat.id, text=show_nlmk_name() + show_nlmk())
-            await bot.send_message(message.chat.id, text=show_novatek_name() + show_novatek())
-            await bot.send_message(message.chat.id, text=show_nornikel_name() + show_nornikel())
-            await bot.send_message(message.chat.id, text=show_polyus_name() + show_polyus())
-            await bot.send_message(message.chat.id, text=show_rosneft_name() + show_rosneft())
-            await bot.send_message(message.chat.id, text=show_rusal_name() + show_rusal())
-            await bot.send_message(message.chat.id, text=show_rushydro_name() + show_rushydro())
-            await bot.send_message(message.chat.id, text=show_severstal_name() + show_severstal())
-            await bot.send_message(message.chat.id, text=show_surgutneft_name() + show_surgutneft())
-            await bot.send_message(message.chat.id, text=show_tatneft_name() + show_tatneft())
-            await bot.send_message(message.chat.id, text=show_transneft_name() + show_transneft())
-            await bot.send_message(message.chat.id, text=show_phosagro_name() + show_phosagro())
-            await bot.send_message(message.chat.id, text=show_fsk_name() + show_fsk())
+        # if message.text == '🏙 Недвижимость 🇷🇺':
+        #   await bot.send_message(message.chat.id, text=show_pik_name() + show_pik())
+        # await bot.send_message(message.chat.id, text=show_lsr_name() + show_lsr())
 
-        if message.text == '🏙 Недвижимость 🇷🇺':
-            await bot.send_message(message.chat.id, text=show_pik_name() + show_pik())
-            await bot.send_message(message.chat.id, text=show_lsr_name() + show_lsr())
+        # if message.text == '💊 Медицина 🇷🇺':
+        #   await bot.send_message(message.chat.id, text=show_life_name() + show_life())
+        # await bot.send_message(message.chat.id, text=show_iskj_name() + show_iskj())
+        # await bot.send_message(message.chat.id, text=show_mdmg_name() + show_mdmg())
+        # await bot.send_message(message.chat.id, text=show_gemc_name() + show_gemc())
 
-        if message.text == '💊 Медицина 🇷🇺':
-            await bot.send_message(message.chat.id, text=show_life_name() + show_life())
-            await bot.send_message(message.chat.id, text=show_iskj_name() + show_iskj())
-            await bot.send_message(message.chat.id, text=show_mdmg_name() + show_mdmg())
-            await bot.send_message(message.chat.id, text=show_gemc_name() + show_gemc())
+        # if message.text == '◀️Назад':
+        #   markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        # rus_stocks = types.KeyboardButton('🇷🇺 Акции')
+        # usa_stocks = types.KeyboardButton('🇺🇸 Акции')
+        # china_stocks = types.KeyboardButton('🇨🇳 Акции')
+        # world_indexes = types.KeyboardButton('🌆 Мировые индексы')
+        # back_button = types.KeyboardButton('◀️Назад')
+        # markup.add(rus_stocks, usa_stocks, china_stocks, world_indexes, back_button)
+        # await bot.send_message(message.chat.id, '🕑Загрузка', reply_markup=markup)
 
-        if message.text == '◀️Назад':
-            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            rus_stocks = types.KeyboardButton('🇷🇺 Акции')
-            usa_stocks = types.KeyboardButton('🇺🇸 Акции')
-            china_stocks = types.KeyboardButton('🇨🇳 Акции')
-            world_indexes = types.KeyboardButton('🌆 Мировые индексы')
-            back_button = types.KeyboardButton('◀️Назад')
-            markup.add(rus_stocks, usa_stocks, china_stocks, world_indexes, back_button)
-            await bot.send_message(message.chat.id, '🕑Загрузка', reply_markup=markup)
+        # if message.text == '🇺🇸 Акции':
+        #   await bot.send_message(message.chat.id, text=showIsxSnp500())
 
-        if message.text == '🇺🇸 Акции':
-            await bot.send_message(message.chat.id, text=show_stock_USA_1_name() + show_alibaba())
-            await bot.send_message(message.chat.id, text=show_stock_USA_2_name() + show_amazon())
-            await bot.send_message(message.chat.id, text=show_stock_USA_3_name() + show_apple())
-            await bot.send_message(message.chat.id, text=show_stock_USA_4_name() + show_exxonmobil())
-            await bot.send_message(message.chat.id, text=show_stock_USA_5_name() + show_netflix())
-            await bot.send_message(message.chat.id, text=show_stock_USA_6_name() + show_metaplatforms())
-            await bot.send_message(message.chat.id, text=show_stock_USA_7_name() + show_nvidia())
-            await bot.send_message(message.chat.id, text=show_stock_USA_8_name() + show_ge())
-            await bot.send_message(message.chat.id, text=show_stock_USA_9_name() + show_google())
-            await bot.send_message(message.chat.id, text=show_stock_USA_10_name() + show_jp())
-            await bot.send_message(message.chat.id, text=show_stock_USA_11_name() + show_microsoft())
-            await bot.send_message(message.chat.id, text=show_stock_USA_12_name() + show_tesla())
-            await bot.send_message(message.chat.id, text=show_stock_USA_13_name() + show_walmart())
-            await bot.send_message(message.chat.id, text=show_stock_USA_14_name() + show_palantir())
+        # if message.text == '🇨🇳 Акции':
+        #   await bot.send_message(message.chat.id, text=show_li_name() + show_li())
+        # await bot.send_message(message.chat.id, text=show_baidu_name() + show_baidu())
+        # await bot.send_message(message.chat.id, text=show_JD_name() + show_jd())
+        # await bot.send_message(message.chat.id, text=show_bilibili_name() + show_bilibili())
+        # await bot.send_message(message.chat.id, text=show_tencent_name() + show_tencent())
+        # await bot.send_message(message.chat.id, text=show_nio_name() + show_nio())
+        # await bot.send_message(message.chat.id, text=show_xpeng_name() + show_xpeng())
 
-        if message.text == '🇨🇳 Акции':
-            await bot.send_message(message.chat.id, text=show_li_name() + show_li())
-            await bot.send_message(message.chat.id, text=show_baidu_name() + show_baidu())
-            await bot.send_message(message.chat.id, text=show_JD_name() + show_jd())
-            await bot.send_message(message.chat.id, text=show_bilibili_name() + show_bilibili())
-            await bot.send_message(message.chat.id, text=show_tencent_name() + show_tencent())
-            await bot.send_message(message.chat.id, text=show_nio_name() + show_nio())
-            await bot.send_message(message.chat.id, text=show_xpeng_name() + show_xpeng())
+        # if message.text == '🌆 Мировые индексы':
+        #   await bot.send_message(message.chat.id, text=show_MOEX_name() + show_MOEX())
+        # await bot.send_message(message.chat.id, text=show_SnP500_name() + show_snp500())
+        # await bot.send_message(message.chat.id, text=show_NASDAQ_name() + show_nasdaq())
+        # await bot.send_message(message.chat.id, text=show_SHANGAI_name() + show_shanghai())
 
-        if message.text == '🌆 Мировые индексы':
-            await bot.send_message(message.chat.id, text=show_MOEX_name() + show_MOEX())
-            await bot.send_message(message.chat.id, text=show_SnP500_name() + show_snp500())
-            await bot.send_message(message.chat.id, text=show_NASDAQ_name() + show_nasdaq())
-            await bot.send_message(message.chat.id, text=show_SHANGAI_name() + show_shanghai())
-
-        if message.text == '◀️Назад':
-            markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            currency_button = types.KeyboardButton('💰 Курс валют')
-            stocks_button = types.KeyboardButton('💸 Курс акций')
-            cryptocurrency_button = types.KeyboardButton('💎 Курс криптовалют')
-            information_button = types.KeyboardButton('⚙️ Разработчик')
-            markup.add(currency_button, stocks_button, cryptocurrency_button, information_button)
-            await bot.send_message(message.chat.id, '🕑Загружаю', reply_markup=markup)
+        # if message.text == '◀️Назад':
+        #   markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        # currency_button = types.KeyboardButton('💰 Курс валют')
+        # stocks_button = types.KeyboardButton('💸 Курс акций')
+        # cryptocurrency_button = types.KeyboardButton('💎 Курс криптовалют')
+        # information_button = types.KeyboardButton('⚙️ Разработчик')
+        # markup.add(currency_button, stocks_button, cryptocurrency_button, information_button)
+        # await bot.send_message(message.chat.id, '🕑Загружаю', reply_markup=markup)
 
         if message.text == '💎 Курс криптовалют':
             await bot.send_message(message.chat.id, '🕐🔜 Загружаю криптобазу...')
-            await bot.send_message(message.chat.id, text=show_bitcoin_name() + show_bitcoin())
-            await bot.send_message(message.chat.id, text=show_ethereum_name() + show_ethereum())
-            await bot.send_message(message.chat.id, text=show_litecoin_name() + show_litecoin())
-            await bot.send_message(message.chat.id, text=show_cardano_name() + show_cardano())
-            await bot.send_message(message.chat.id, text=show_xrp_name() + show_xrp())
-            await bot.send_message(message.chat.id, text=show_doge_name() + show_doge())
-            await bot.send_message(message.chat.id, text=show_bnb_name() + show_bnb())
-            await bot.send_message(message.chat.id, text=show_tether_name() + show_tether())
-            await bot.send_message(message.chat.id, text=show_solana_name() + show_solana())
-            await bot.send_message(message.chat.id, text=show_terra_name() + show_terra())
-            await bot.send_message(message.chat.id, text=show_uniswap_name() + show_uniswap())
-            await bot.send_message(message.chat.id, text=show_polkadot_name() + show_dot())
-            await bot.send_message(message.chat.id, text=show_avalanche_name() + show_avalanche())
-            await bot.send_message(message.chat.id, text=show_chainlink_name() + show_chainlink())
-            await bot.send_message(message.chat.id, text=show_tron_name() + show_tron())
-            await bot.send_message(message.chat.id, text=show_shiba_name() + show_shiba())
+            await bot.send_message(message.chat.id, text=bitcoin.get_cryptocurrency_value() + '\n' +
+                                                         ethereum.get_cryptocurrency_value() + '\n' +
+                                                         litecoin.get_cryptocurrency_value() + '\n' +
+                                                         cardano.get_cryptocurrency_value() + '\n' +
+                                                         xrp.get_cryptocurrency_value() + '\n' +
+                                                         doge.get_cryptocurrency_value() + '\n' +
+                                                         bnb.get_cryptocurrency_value() + '\n' +
+                                                         tether.get_cryptocurrency_value() + '\n' +
+                                                         solana.get_cryptocurrency_value() + '\n' +
+                                                         luna.get_cryptocurrency_value() + '\n' +
+                                                         uniswap.get_cryptocurrency_value() + '\n' +
+                                                         polkadot.get_cryptocurrency_value() + '\n' +
+                                                         avalanche.get_cryptocurrency_value() + '\n' +
+                                                         chainlink.get_cryptocurrency_value() + '\n' +
+                                                         tron.get_cryptocurrency_value() + '\n' +
+                                                         shiba.get_cryptocurrency_value())
 
         if message.text == '⚙️ Разработчик':
-            await bot.send_message(message.chat.id, text='🌐 Разработчик: Миллер Ян Станиславович\n🏙 Студент НИУ ВШЭ, МИЭМ Информационная безопасность\n📚Уч.группа: БИБ211')
+            await bot.send_message(message.chat.id,
+                                   text='🌐 Разработчик: Миллер Ян Станиславович\n🏙 Студент НИУ ВШЭ, МИЭМ Информационная безопасность\n📚Уч.группа: БИБ211')
 
 
 if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates= True)
+    executor.start_polling(dp, skip_updates=True)

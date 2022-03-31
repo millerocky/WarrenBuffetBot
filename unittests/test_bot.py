@@ -1,6 +1,4 @@
 from unittest import TestCase, main
-from WarrenBuffetBot.currency.currency import show_USD_RUB, show_EUR_RUB, dollar_rub, show_ticker_usd, ticker_usd, \
-    show_ticker_euro, ticker_euro, euro_rub
 from WarrenBuffetBot.stocksRU.finance_sector_RU.stocks_finance_sector import show_vtb, show_tinkoff, show_mkb, \
     show_sber, show_sber_prevs, show_afk, show_spb_bank, show_vtb_name, vtb_name, vtb_rub, \
     show_tinkoff_bank_name, tinkoff_bank_name, tinkoff_bank_rub, show_mkb_name, mkb_name, mkb_rub, show_sber_name, sber_name, sber_rub, show_sber_prevs_name, sber_prevs_name, sber_prevs_rub, \
@@ -39,15 +37,6 @@ from WarrenBuffetBot.stocks_China.stock_China import show_li, show_baidu, show_j
     show_nio, show_xpeng, show_li_name, li_auto_name, li_auto_usd, show_baidu_name, baidu_name, baidu_usd, show_JD_name, \
     JD_name, JD_usd, show_bilibili_name, bilibili_name, bilibili_usd, show_tencent_name, tencent_name, tencent_usd, \
     show_nio_name, nio_name, nio_usd, show_xpeng_name, xpeng_name, xpeng_usd
-from WarrenBuffetBot.cryptocurrencies.crypto import show_bitcoin, show_ethereum, show_litecoin, \
-    show_cardano, show_xrp, show_doge, show_bnb, show_tether, show_solana, show_terra, show_uniswap, show_dot, \
-    show_avalanche, show_chainlink, show_tron, show_shiba, show_bitcoin_name, bitcoin_name, bitcoin_usd, \
-    show_ethereum_name, ethereum_name, ethereum_usd, show_litecoin_name, litecoin_name, litecoin_usd, show_cardano_name, \
-    cardano_name, cardano_usd, show_xrp_name, xrp_name, xrp_usd, show_doge_name, doge_name, doge_usd, show_bnb_name, \
-    bnb_name, bnb_usd, show_tether_name, tether_name, tether_usd, show_solana_name, solana_name, solana_usd, \
-    show_terra_name, terra_name, terra_usd, show_uniswap_name, uniswap_name, uniswap_usd, show_polkadot_name, \
-    polkadot_name, polkadot_usd, show_avalanche_name, avalanche_name, avalanche_usd, show_chainlink_name, \
-    chainlink_name, chainlink_usd, show_tron_name, tron_name, tron_usd, show_shiba_name, shiba_name, shiba_usd
 from WarrenBuffetBot.stocksUSA.stocks_USA import show_alibaba, show_amazon, show_apple, \
     show_exxonmobil, show_netflix, show_metaplatforms, show_nvidia, show_ge, show_google, show_jp, show_microsoft, \
     show_tesla, show_walmart, show_palantir, show_stock_USA_1_name, stock_USA_1_name, stock_USA_1_dollar, \
@@ -177,10 +166,6 @@ class TestShowStocks(TestCase):
         '''
         :return: Тестирование работы всех функций по выводу названий интсрументов и их котировок
         '''
-        self.assertEqual(show_ticker_usd(), ticker_usd)
-        self.assertEqual(show_USD_RUB(), dollar_rub)
-        self.assertEqual(show_ticker_euro(), ticker_euro)
-        self.assertEqual(show_EUR_RUB(), euro_rub)
         self.assertEqual(show_magnit_name(), magnit_name)
         self.assertEqual(show_magnit(), magnit_rub)
         self.assertEqual(show_x5group_name(), x5group_name)
@@ -329,38 +314,6 @@ class TestShowStocks(TestCase):
         self.assertEqual(show_nasdaq(), NASDAQ_index)
         self.assertEqual(show_SHANGAI_name(), SHANGAI_index_name)
         self.assertEqual(show_shanghai(), SHANGAI_index)
-        self.assertEqual(show_bitcoin_name(), bitcoin_name)
-        self.assertEqual(show_bitcoin(), bitcoin_usd)
-        self.assertEqual(show_ethereum_name(), ethereum_name)
-        self.assertEqual(show_ethereum(), ethereum_usd)
-        self.assertEqual(show_litecoin_name(), litecoin_name)
-        self.assertEqual(show_litecoin(), litecoin_usd)
-        self.assertEqual(show_cardano_name(), cardano_name)
-        self.assertEqual(show_cardano(), cardano_usd)
-        self.assertEqual(show_xrp_name(), xrp_name)
-        self.assertEqual(show_xrp(), xrp_usd)
-        self.assertEqual(show_doge_name(), doge_name)
-        self.assertEqual(show_doge(), doge_usd)
-        self.assertEqual(show_bnb_name(), bnb_name)
-        self.assertEqual(show_bnb(), bnb_usd)
-        self.assertEqual(show_tether_name(), tether_name)
-        self.assertEqual(show_tether(), tether_usd)
-        self.assertEqual(show_solana_name(), solana_name)
-        self.assertEqual(show_solana(), solana_usd)
-        self.assertEqual(show_terra_name(), terra_name)
-        self.assertEqual(show_terra(), terra_usd)
-        self.assertEqual(show_uniswap_name(), uniswap_name)
-        self.assertEqual(show_uniswap(), uniswap_usd)
-        self.assertEqual(show_polkadot_name(), polkadot_name)
-        self.assertEqual(show_dot(), polkadot_usd)
-        self.assertEqual(show_avalanche_name(), avalanche_name)
-        self.assertEqual(show_avalanche(), avalanche_usd)
-        self.assertEqual(show_chainlink_name(), chainlink_name)
-        self.assertEqual(show_chainlink(), chainlink_usd)
-        self.assertEqual(show_tron_name(), tron_name)
-        self.assertEqual(show_tron(), tron_usd)
-        self.assertEqual(show_shiba_name(), shiba_name)
-        self.assertEqual(show_shiba(), shiba_usd)
 
 
 if __name__ == '__main__':
